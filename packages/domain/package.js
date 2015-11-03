@@ -19,8 +19,8 @@ Package.onUse(function(api) {
 
   api.addFiles([
     'source/server/module.js',
-    // ORGANIZATIONS
-    'source/server/todos/todo.js',
+    // TODO ITEMS
+    'source/server/todos/todo-items.js',
     'source/server/todos/todo-router.js',
   ], 'server');
 
@@ -39,7 +39,7 @@ Package.onTest(function(api) {
   ]);
 
   api.addFiles([
-    'tests/todos/todos.tests.js'
+    'tests/todos/todo.tests.js'
   ], 'server');
 
 });
