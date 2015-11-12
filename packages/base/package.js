@@ -12,7 +12,9 @@ Package.onUse(function(api) {
 
   api.use([
     'check',
+    'ecmascript',
     'space:messaging@2.1.0',
+    'space:domain@0.1.0',
   ]);
 
   // SHARED
@@ -22,7 +24,7 @@ Package.onUse(function(api) {
 
   // SERVER ONLY
   api.addFiles([
-    'source/server/value-objects/todo-item.js',
+    'source/server/entities/todo-item.js',
     'source/server/events.js',
     'source/server/commands.js'
   ], 'server');

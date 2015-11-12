@@ -1,7 +1,12 @@
 Space.messaging.define(Space.messaging.Command, 'Todos', {
 
-  CreateTodoItems: {
+  CreateTodoList: {
     name: String
+  },
+
+  CreateTodoItem: {
+    title: String,
+    isCompleted: Boolean
   }
 
 });

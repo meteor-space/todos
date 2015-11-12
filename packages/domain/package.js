@@ -13,14 +13,16 @@ Package.onUse(function(api) {
   api.use([
     'mongo',
     'check',
+    'ecmascript',
     'space:event-sourcing@2.1.0',
-    'todos:base'
+    'todos:base',
+    'space:domain@0.1.0',
   ]);
 
   api.addFiles([
     'source/server/module.js',
     // TODO ITEMS
-    'source/server/todos/todo-items.js',
+    'source/server/todos/todo-list.js',
     'source/server/todos/todo-router.js',
   ], 'server');
 
@@ -36,10 +38,11 @@ Package.onTest(function(api) {
     'todos:base',
     'todos:domain',
     'practicalmeteor:munit@2.1.5',
+    'ecmascript',
   ]);
 
   api.addFiles([
-    'tests/todos/todo.tests.js'
+    'tests/todos/todo.tests.js',
   ], 'server');
 
 });

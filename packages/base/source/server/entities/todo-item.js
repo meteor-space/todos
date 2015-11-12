@@ -1,4 +1,4 @@
-Space.messaging.Serializable.extend(Todos, 'TodoItem', {});
+Space.domain.Entity.extend(Todos, 'TodoItem', {});
 
 // EJSON serializable fields
 Todos.TodoItem.fields = {

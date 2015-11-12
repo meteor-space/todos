@@ -1,29 +1,64 @@
 describe("Todos.Todo", function () {
 
   beforeEach(function () {
-    this.data = {
+    this.todoListId = "6b155780-34ae-48a7-89de-61e2276fcaf2";
+    //this.todoListId = new Guid();
+    this.todoItemId = new Guid();
+    this.todoListData = {
       name: 'MyTodos'
+    };
+    this.todoItemdata = {
+      title: 'My Todo',
+      isCompleted: false
     };
   });
 
-  describe("creating a new todo items", function () {
+  describe("creating a new todo list", function () {
 
-    it("publishes a created event", function () {
-      var guid = new Guid();
-      Todos.domain.test(Todos.TodoItems).given()
+    it("publishes a todo list created event", function () {
+      Todos.domain.test(Todos.TodoList)
+        .given()
         .when(
-          new Todos.CreateTodoItems(_.extend({}, this.data, {
-            targetId: guid
+          new Todos.CreateTodoList(_.extend({}, this.todoListData, {
+            targetId: this.todoListId
           }))
         )
         .expect([
-          new Todos.TodoItemsCreated(_.extend({}, this.data, {
-            sourceId: guid,
+          new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+            sourceId: this.todoListId,
             timestamp: new Date(),
             version: 1
           }))
-        ]);
+        ])
     });
-
   });
+
+  describe("creating a new todo item", function () {
+
+    let todoListCreated = function() {
+      return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId,
+        version: 1
+      }));
+    };
+
+    it("publishes a todo item created event", function () {
+      Todos.domain.test(Todos.TodoList)
+        .given([todoListCreated.call(this)])
+        .when(
+          new Todos.CreateTodoItem(_.extend({}, this.todoItemdata, {
+            targetId: this.todoListId
+          }))
+        )
+        .expect([
+          new Todos.TodoItemCreated(_.extend({}, this.todoItemdata, {
+            sourceId: this.todoListId,
+            timestamp: new Date(),
+            version: 2
+          }))
+        ])
+    });
+  });
+
+
 });

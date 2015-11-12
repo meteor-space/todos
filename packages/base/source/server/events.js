@@ -1,7 +1,12 @@
 Space.messaging.define(Space.messaging.Event, 'Todos', {
 
-  TodoItemsCreated: {
+  TodoListCreated: {
     name: String
+  },
+
+  TodoItemCreated: {
+    title: String,
+    isCompleted: Boolean
   }
 
 });

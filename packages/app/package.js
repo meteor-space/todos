@@ -15,6 +15,7 @@ Package.onUse(function(api) {
     'standard-minifiers',
     'templating',
     'blaze-html-templates',
+    'ecmascript',
     'spacebars',
     'mongo',
     'session',
@@ -34,7 +35,7 @@ Package.onUse(function(api) {
 
   // SERVER Configuration
   api.addFiles([
-    'source/server/application.js'
+    'source/server/application.js',
   ], 'server');
 
   // CLIENT Configuration
@@ -56,6 +57,7 @@ Package.onTest(function(api) {
     'todos:app',
     'practicalmeteor:munit@2.1.5',
     'space:testing@2.0.0',
+    'ecmascript',
   ]);
 
 });
