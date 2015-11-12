@@ -1,6 +1,8 @@
 machine:
   node:
     version: 0.10.33
+  environment:
+    PACKAGE_DIRS: packages
   pre:
     - curl https://install.meteor.com | /bin/sh
 dependencies:
@@ -11,4 +13,4 @@ dependencies:
     - mgp
 test:
   override:
-    - spacejam test-packages todos:domain
+    - ./ci.sh
