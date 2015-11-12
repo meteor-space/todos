@@ -3,7 +3,7 @@
 export PACKAGE_DIRS='packages'
 
 if [ "$PORT" ]; then
-  spacejam test-packages ./ --port $PORT
+  spacejam test-packages packages/domain --port $PORT
 else
-   spacejam test-packages ./
+   spacejam test-packages packages/domain
 fi
