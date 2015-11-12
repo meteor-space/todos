@@ -5,14 +5,14 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     todos: null
   },
 
-  commandMap: function() {
+  commandMap() {
     return {
       'Todos.CreateTodoList': this._createTodoList,
       'Todos.CreateTodoItem': this._createTodoItem
     };
   },
 
-  eventMap: function() {
+  eventMap() {
     return {
       'Todos.TodoListCreated': this._handleNewTodoList,
       'Todos.TodoItemCreated': this._handleNewTodoItem
@@ -21,25 +21,25 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   // ============= COMMAND HANDLERS =============
 
-  _createTodoList: function(command) {
+  _createTodoList(command) {
     this.record(new Todos.TodoListCreated(this._eventPropsFromCommand(command)));
-    console.log("Create todo list command");
   },
 
-  _createTodoItem: function(command) {
+  _createTodoItem(command) {
     this.record(new Todos.TodoItemCreated(this._eventPropsFromCommand(command)));
-    console.log("Create todo item command");
   },
 
   // ============= EVENT HANDLERS ============
 
-  _handleNewTodoList: function(event) {
+  _handleNewTodoList(event) {
     this.todos = [];
-    console.log("Todo List created event");
   },
 
-  _handleNewTodoItem: function(event) {
-    console.log("Todo Item created event");
+  _handleNewTodoItem(event) {
+    let todoItem = new Todos.TodoItem(new Guid());
+    todoItem.title = event.title;
+    todoItem.isCompleted = event.isCompleted;
+    this.todos.push(todoItem);
   }
 
 });

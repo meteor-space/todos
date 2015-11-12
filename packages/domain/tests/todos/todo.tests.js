@@ -1,9 +1,7 @@
-describe("Todos.Todo", function () {
+describe("Todos.Todo", function() {
 
-  beforeEach(function () {
-    this.todoListId = "6b155780-34ae-48a7-89de-61e2276fcaf2";
-    //this.todoListId = new Guid();
-    this.todoItemId = new Guid();
+  beforeEach(function() {
+    this.todoListId = new Guid();
     this.todoListData = {
       name: 'MyTodos'
     };
@@ -13,9 +11,9 @@ describe("Todos.Todo", function () {
     };
   });
 
-  describe("creating a new todo list", function () {
+  describe("creating a new todo list", function() {
 
-    it("publishes a todo list created event", function () {
+    it("publishes a todo list created event", function() {
       Todos.domain.test(Todos.TodoList)
         .given()
         .when(
@@ -29,11 +27,11 @@ describe("Todos.Todo", function () {
             timestamp: new Date(),
             version: 1
           }))
-        ])
+        ]);
     });
   });
 
-  describe("creating a new todo item", function () {
+  describe("creating a new todo item", function() {
 
     let todoListCreated = function() {
       return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
@@ -42,7 +40,7 @@ describe("Todos.Todo", function () {
       }));
     };
 
-    it("publishes a todo item created event", function () {
+    it("publishes a todo item created event", function() {
       Todos.domain.test(Todos.TodoList)
         .given([todoListCreated.call(this)])
         .when(
@@ -56,9 +54,8 @@ describe("Todos.Todo", function () {
             timestamp: new Date(),
             version: 2
           }))
-        ])
+        ]);
     });
   });
-
 
 });
