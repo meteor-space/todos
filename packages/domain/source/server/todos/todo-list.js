@@ -1,8 +1,8 @@
 Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   fields: {
-    name: null,
-    todos: null
+    name: String,
+    todos: [Todos.TodoItem]
   },
 
   commandMap() {
@@ -32,14 +32,18 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   // ============= EVENT HANDLERS ============
 
   _handleNewTodoList(event) {
+    this._assignFields(event);
     this.todos = [];
   },
 
   _handleNewTodoItem(event) {
-    let todoItem = new Todos.TodoItem(new Guid());
-    todoItem.title = event.title;
-    todoItem.isCompleted = event.isCompleted;
-    this.todos.push(todoItem);
+    this.todos.push(new Todos.TodoItem({
+      id: new Guid(),
+      title: event.title,
+      isCompleted: event.isCompleted
+    }));
   }
 
 });
+
+Todos.TodoList.registerSnapshotType(`Todos.TodoList`);

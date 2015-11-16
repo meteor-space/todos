@@ -1,8 +1,8 @@
 Todos.domain = Space.Module.define('Todos.domain', {
 
-  RequiredModules: ['Space.eventSourcing'],
+  requiredModules: ['Space.eventSourcing'],
 
-  Singletons: [
+  singletons: [
     'Todos.TodosRouter'
   ]
 
