@@ -13,7 +13,7 @@
   },
   "space:domain": {
     "git":"https://github.com/meteor-space/domain.git",
-    "branch": "feature/serializable-entities"
+    "branch": "develop"
   },
   "space:flux": {
     "git":"https://github.com/meteor-space/flux.git",
