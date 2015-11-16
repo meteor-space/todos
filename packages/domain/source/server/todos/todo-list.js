@@ -8,14 +8,14 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   commandMap() {
     return {
       'Todos.CreateTodoList': this._createTodoList,
-      'Todos.CreateTodoItem': this._createTodoItem
+      'Todos.CreateTodo': this._createTodo
     };
   },
 
   eventMap() {
     return {
       'Todos.TodoListCreated': this._handleNewTodoList,
-      'Todos.TodoItemCreated': this._handleNewTodoItem
+      'Todos.TodoCreated': this._handleNewTodo
     };
   },
 
@@ -25,8 +25,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     this.record(new Todos.TodoListCreated(this._eventPropsFromCommand(command)));
   },
 
-  _createTodoItem(command) {
-    this.record(new Todos.TodoItemCreated(this._eventPropsFromCommand(command)));
+  _createTodo(command) {
+    this.record(new Todos.TodoCreated(this._eventPropsFromCommand(command)));
   },
 
   // ============= EVENT HANDLERS ============
@@ -36,7 +36,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     this.todos = [];
   },
 
-  _handleNewTodoItem(event) {
+  _handleNewTodo(event) {
     this.todos.push(new Todos.TodoItem({
       id: new Guid(),
       title: event.title,

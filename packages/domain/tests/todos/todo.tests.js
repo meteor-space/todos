@@ -31,7 +31,7 @@ describe("Todos.Todo", function() {
     });
   });
 
-  describe("creating a new todo item", function() {
+  describe("creating a new todo", function() {
 
     let todoListCreated = function() {
       return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
@@ -40,16 +40,16 @@ describe("Todos.Todo", function() {
       }));
     };
 
-    it("publishes a todo item created event", function() {
+    it("publishes a todo created event", function() {
       Todos.domain.test(Todos.TodoList)
         .given([todoListCreated.call(this)])
         .when(
-          new Todos.CreateTodoItem(_.extend({}, this.todoItemdata, {
+          new Todos.CreateTodo(_.extend({}, this.todoItemdata, {
             targetId: this.todoListId
           }))
         )
         .expect([
-          new Todos.TodoItemCreated(_.extend({}, this.todoItemdata, {
+          new Todos.TodoCreated(_.extend({}, this.todoItemdata, {
             sourceId: this.todoListId,
             timestamp: new Date(),
             version: 2

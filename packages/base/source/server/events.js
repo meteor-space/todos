@@ -4,8 +4,18 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
     name: String
   },
 
-  TodoItemCreated: {
+  TodoCreated: {
     title: String,
+    isCompleted: Boolean
+  },
+
+  TodoCompleted: {
+    id: Guid,
+    isCompleted: Boolean
+  },
+
+  TodoReopened: {
+    id: Guid,
     isCompleted: Boolean
   }
 
