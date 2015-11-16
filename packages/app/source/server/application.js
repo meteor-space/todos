@@ -1,7 +1,7 @@
 Todos.App = Space.Application.define('Todos.App', {
 
-  Configuration: { appId: 'Todos.App'},
+  configuration: { appId: 'Todos.App'},
 
-  RequiredModules: ['Todos.domain']
+  requiredModules: ['Todos.domain']
 
 });

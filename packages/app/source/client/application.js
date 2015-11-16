@@ -1,13 +1,13 @@
 Todos.App = Space.flux.Application.define('Todos.App', {
 
-  Configuration: {},
+  configuration: {},
 
-  RequiredModules: [],
+  requiredModules: [],
 
-  Stores: [],
+  stores: [],
 
-  Controllers: [],
+  controllers: [],
 
-  Components: []
+  components: []
 
 });

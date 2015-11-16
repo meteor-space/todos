@@ -1,10 +1,10 @@
 Space.eventSourcing.Router.extend(Todos, 'TodosRouter', {
 
-  Aggregate: Todos.TodoList,
+  aggregate: Todos.TodoList,
 
-  InitializingCommand: Todos.CreateTodoList,
+  initializingCommand: Todos.CreateTodoList,
 
-  RouteCommands: [
+  routeCommands: [
     Todos.CreateTodoItem,
     // Todos.CompleteTodoItem
   ]
