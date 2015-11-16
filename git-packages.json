@@ -21,6 +21,6 @@
   },
   "space:testing": {
     "git":"https://github.com/meteor-space/testing.git",
-    "commit": "develop"
+    "branch": "develop"
   }
 }
