@@ -58,13 +58,14 @@ describe("Todos.Todo", function() {
             version: 2,
             id: this.todoId
           }))
+          //TODO: Should I check if todo item in array in aggregate instance?
         ]);
     });
   });
 
   describe("completing todo", function() {
 
-    let todoListAndTodoCreated = function() {
+    let todoListWithUncompleteTodo = function() {
 
       let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
         sourceId: this.todoListId,
@@ -82,7 +83,7 @@ describe("Todos.Todo", function() {
 
     it("completes todo", function() {
       Todos.domain.test(Todos.TodoList)
-        .given(todoListAndTodoCreated.call(this))
+        .given(todoListWithUncompleteTodo.call(this))
         .when([
           new Todos.CompleteTodo(_.extend({}, {}, {
             targetId: this.todoListId,
@@ -98,7 +99,6 @@ describe("Todos.Todo", function() {
           }))
         ]);
     });
-
 
     let todoListWithCompletedTodo = function() {
 
@@ -127,6 +127,37 @@ describe("Todos.Todo", function() {
           }))]
         )
         .expectToFailWith(new Todos.TodoCannotBeCompleted());
+    });
+
+    it("reopens todo", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithCompletedTodo.call(this))
+        .when([
+          new Todos.ReopenTodo(_.extend({}, {}, {
+            targetId: this.todoListId,
+            id: this.todoId
+          }))]
+        )
+        .expect([
+          new Todos.TodoReopened(_.extend({}, {}, {
+            sourceId: this.todoListId,
+            timestamp: new Date(),
+            version: 2,
+            id: this.todoId
+          }))
+        ]);
+    });
+
+    it("does not allow reopening already open todo", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithUncompleteTodo.call(this))
+        .when([
+          new Todos.ReopenTodo(_.extend({}, {}, {
+            targetId: this.todoListId,
+            id: this.todoId
+          }))]
+        )
+        .expectToFailWith(new Todos.TodoCannotBeReopened());
     });
 
   });

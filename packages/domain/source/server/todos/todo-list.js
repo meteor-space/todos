@@ -9,15 +9,17 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     return {
       'Todos.CreateTodoList': this._createTodoList,
       'Todos.CreateTodo': this._createTodo,
-      'Todos.CompleteTodo': this._completeTodo
+      'Todos.CompleteTodo': this._completeTodo,
+      'Todos.ReopenTodo': this._reopenTodo
     };
   },
 
   eventMap() {
     return {
-      'Todos.TodoListCreated': this._handleNewTodoList,
-      'Todos.TodoCreated': this._handleNewTodo,
-      'Todos.TodoCompleted': this._handleCompleteTodo
+      'Todos.TodoListCreated': this._onTodoListCreated,
+      'Todos.TodoCreated': this._onTodoCreated,
+      'Todos.TodoCompleted': this._onTodoCompleted,
+      'Todos.TodoReopened': this._onTodoReopened
     };
   },
 
@@ -33,9 +35,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   _completeTodo(command) {
 
-    let todo = _.find(this.todos, function(todo) {
-      return (todo.id.id === command.id.id);
-    });
+    let todo = this._findTodoById(command.id.id);
 
     if (todo instanceof Todos.TodoItem && todo.isCompleted === true) {
       throw new Todos.TodoCannotBeCompleted();
@@ -45,15 +45,26 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   },
 
+  _reopenTodo(command) {
+
+    let todo = this._findTodoById(command.id.id);
+
+    if (todo instanceof Todos.TodoItem && todo.isCompleted === false) {
+      throw new Todos.TodoCannotBeReopened();
+    } else {
+      this.record(new Todos.TodoReopened(this._eventPropsFromCommand(command)));
+    }
+
+  },
+
   // ============= EVENT HANDLERS ============
 
-  _handleNewTodoList(event) {
+  _onTodoListCreated(event) {
     this._assignFields(event);
     this.todos = [];
   },
 
-  _handleNewTodo(event) {
-
+  _onTodoCreated(event) {
 
     let todo = new Todos.TodoItem({
       id: event.id,
@@ -64,12 +75,25 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     this.todos.push(todo);
   },
 
-  _handleCompleteTodo(event) {
-    _.find(this.todos, function(todo) {
-      if (todo.id.id === event.id.id) {
-        todo.isCompleted = true;
-      }
+  _onTodoCompleted(event) {
+    let todo = this._findTodoById(event.id.id);
+    todo.isCompleted = true;
+  },
+
+  _onTodoReopened(event) {
+    let todo = this._findTodoById(event.id.id);
+    todo.isCompleted = false;
+  },
+
+  // ============= HELPERS ============
+
+  _findTodoById(id) {
+
+    let todo = _.find(this.todos, function(todo) {
+      return (todo.id.id === id);
     });
+
+    return todo;
   }
 
 });
