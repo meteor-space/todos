@@ -26,7 +26,8 @@ Package.onUse(function(api) {
   api.addFiles([
     'source/server/entities/todo-item.js',
     'source/server/events.js',
-    'source/server/commands.js'
+    'source/server/commands.js',
+    'source/server/errors.js'
   ], 'server');
 
   api.export('Todos');

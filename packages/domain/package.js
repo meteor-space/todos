@@ -14,6 +14,7 @@ Package.onUse(function(api) {
     'mongo',
     'check',
     'ecmascript',
+    'underscore',
     'space:event-sourcing@2.1.0',
     'todos:base',
     'space:domain@0.1.0',

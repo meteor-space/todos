@@ -8,14 +8,16 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   commandMap() {
     return {
       'Todos.CreateTodoList': this._createTodoList,
-      'Todos.CreateTodo': this._createTodo
+      'Todos.CreateTodo': this._createTodo,
+      'Todos.CompleteTodo': this._completeTodo
     };
   },
 
   eventMap() {
     return {
       'Todos.TodoListCreated': this._handleNewTodoList,
-      'Todos.TodoCreated': this._handleNewTodo
+      'Todos.TodoCreated': this._handleNewTodo,
+      'Todos.TodoCompleted': this._handleCompleteTodo
     };
   },
 
@@ -29,6 +31,20 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     this.record(new Todos.TodoCreated(this._eventPropsFromCommand(command)));
   },
 
+  _completeTodo(command) {
+
+    let todo = _.find(this.todos, function(todo) {
+      return (todo.id.id === command.id.id);
+    });
+
+    if (todo instanceof Todos.TodoItem && todo.isCompleted === true) {
+      throw new Todos.TodoCannotBeCompleted();
+    } else {
+      this.record(new Todos.TodoCompleted(this._eventPropsFromCommand(command)));
+    }
+
+  },
+
   // ============= EVENT HANDLERS ============
 
   _handleNewTodoList(event) {
@@ -37,11 +53,23 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _handleNewTodo(event) {
-    this.todos.push(new Todos.TodoItem({
-      id: new Guid(),
+
+
+    let todo = new Todos.TodoItem({
+      id: event.id,
       title: event.title,
       isCompleted: event.isCompleted
-    }));
+    });
+
+    this.todos.push(todo);
+  },
+
+  _handleCompleteTodo(event) {
+    _.find(this.todos, function(todo) {
+      if (todo.id.id === event.id.id) {
+        todo.isCompleted = true;
+      }
+    });
   }
 
 });

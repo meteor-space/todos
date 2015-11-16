@@ -2,13 +2,15 @@ describe("Todos.Todo", function() {
 
   beforeEach(function() {
     this.todoListId = new Guid();
+    this.todoId = new Guid();
     this.todoListData = {
       name: 'MyTodos'
     };
-    this.todoItemdata = {
+    this.todoData = {
       title: 'My Todo',
       isCompleted: false
     };
+
   });
 
   describe("creating a new todo list", function() {
@@ -44,18 +46,89 @@ describe("Todos.Todo", function() {
       Todos.domain.test(Todos.TodoList)
         .given([todoListCreated.call(this)])
         .when(
-          new Todos.CreateTodo(_.extend({}, this.todoItemdata, {
-            targetId: this.todoListId
+          new Todos.CreateTodo(_.extend({}, this.todoData, {
+            targetId: this.todoListId,
+            id: this.todoId
           }))
         )
         .expect([
-          new Todos.TodoCreated(_.extend({}, this.todoItemdata, {
+          new Todos.TodoCreated(_.extend({}, this.todoData, {
             sourceId: this.todoListId,
             timestamp: new Date(),
-            version: 2
+            version: 2,
+            id: this.todoId
           }))
         ]);
     });
+  });
+
+  describe("completing todo", function() {
+
+    let todoListAndTodoCreated = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId,
+        version: 1
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.todoData, {
+        sourceId: this.todoListId,
+        version: 2,
+        id: this.todoId
+      }));
+
+      return [listCreated, todoCreated];
+    };
+
+    it("completes todo", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListAndTodoCreated.call(this))
+        .when([
+          new Todos.CompleteTodo(_.extend({}, {}, {
+            targetId: this.todoListId,
+            id: this.todoId
+          }))]
+        )
+        .expect([
+          new Todos.TodoCompleted(_.extend({}, {}, {
+            sourceId: this.todoListId,
+            timestamp: new Date(),
+            version: 2,
+            id: this.todoId
+          }))
+        ]);
+    });
+
+
+    let todoListWithCompletedTodo = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId,
+        version: 1
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.todoData, {
+        sourceId: this.todoListId,
+        version: 2,
+        id: this.todoId,
+        isCompleted: true
+      }));
+
+      return [listCreated, todoCreated];
+    };
+
+    it("does not allow completion of completed todos", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithCompletedTodo.call(this))
+        .when([
+          new Todos.CompleteTodo(_.extend({}, {}, {
+            targetId: this.todoListId,
+            id: this.todoId
+          }))]
+        )
+        .expectToFailWith(new Todos.TodoCannotBeCompleted());
+    });
+
   });
 
 });

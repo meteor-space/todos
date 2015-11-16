@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+source ./environment.sh # Customize environment
 
 export PACKAGE_DIRS='packages'
 
