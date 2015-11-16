@@ -1,6 +1,6 @@
 Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
-  FIELDS: {
+  fields: {
     name: null,
     todos: null
   },
