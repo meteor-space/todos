@@ -149,7 +149,8 @@
       "afterColon": true
     }],
     "new-cap": [2, {                 // http://eslint.org/docs/rules/new-cap
-      "newIsCap": true
+      "newIsCap": true,
+      "capIsNew": false
     }],
     "no-multiple-empty-lines": [2, { // http://eslint.org/docs/rules/no-multiple-empty-lines
       "max": 2
@@ -159,7 +160,6 @@
     "no-array-constructor": 2,       // http://eslint.org/docs/rules/no-array-constructor
     "no-spaced-func": 2,             // http://eslint.org/docs/rules/no-spaced-func
     "no-trailing-spaces": 2,         // http://eslint.org/docs/rules/no-trailing-spaces
-    "no-extra-parens": 0,            // http://eslint.org/docs/rules/no-extra-parens (previously known as no-wrap-func)
     "no-underscore-dangle": 0,       // http://eslint.org/docs/rules/no-underscore-dangle
     "one-var": [1, "never"],         // http://eslint.org/docs/rules/one-var
     "semi": [2, "always"],           // http://eslint.org/docs/rules/semi
