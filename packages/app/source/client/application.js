@@ -1,4 +1,4 @@
-Todos.App = Space.flux.Application.define('Todos.App', {
+Todos.App = Space.Application.extend('Todos.App', {
 
   configuration: {},
 
