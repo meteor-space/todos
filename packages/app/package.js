@@ -36,6 +36,7 @@ Package.onUse(function(api) {
   // SERVER Configuration
   api.addFiles([
     'source/server/application.js',
+    'source/server/todos-api.js',
   ], 'server');
 
   // CLIENT Configuration
@@ -54,10 +55,16 @@ Package.onTest(function(api) {
 
   api.use([
     'mongo',
+    'ecmascript',
+    'space:testing@2.0.0',
+    'todos:base',
+    'todos:domain',
     'todos:app',
     'practicalmeteor:munit@2.1.5',
-    'space:testing@2.0.0',
-    'ecmascript',
   ]);
+
+  api.addFiles([
+    'tests/server/todos-api.tests.js'
+  ], 'server');
 
 });
