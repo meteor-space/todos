@@ -11,11 +11,11 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
   },
 
   TodoCompleted: {
-    id: Guid
+    todoId: Guid
   },
 
   TodoReopened: {
-    id: Guid
+    todoId: Guid
   }
 
 });

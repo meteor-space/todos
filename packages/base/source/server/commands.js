@@ -11,11 +11,11 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
   },
 
   CompleteTodo: {
-    id: Guid
+    todoId: Guid
   },
 
   ReopenTodo: {
-    id: Guid
+    todoId: Guid
   }
 
 });

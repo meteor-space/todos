@@ -87,7 +87,7 @@ describe("Todos.Todo", function() {
         .when([
           new Todos.CompleteTodo(_.extend({}, {}, {
             targetId: this.todoListId,
-            id: this.todoId
+            todoId: this.todoId
           }))]
         )
         .expect([
@@ -95,7 +95,7 @@ describe("Todos.Todo", function() {
             sourceId: this.todoListId,
             timestamp: new Date(),
             version: 2,
-            id: this.todoId
+            todoId: this.todoId
           }))
         ]);
     });
@@ -123,7 +123,7 @@ describe("Todos.Todo", function() {
         .when([
           new Todos.CompleteTodo(_.extend({}, {}, {
             targetId: this.todoListId,
-            id: this.todoId
+            todoId: this.todoId
           }))]
         )
         .expectToFailWith(new Todos.TodoCannotBeCompleted());
@@ -135,7 +135,7 @@ describe("Todos.Todo", function() {
         .when([
           new Todos.ReopenTodo(_.extend({}, {}, {
             targetId: this.todoListId,
-            id: this.todoId
+            todoId: this.todoId
           }))]
         )
         .expect([
@@ -143,7 +143,7 @@ describe("Todos.Todo", function() {
             sourceId: this.todoListId,
             timestamp: new Date(),
             version: 2,
-            id: this.todoId
+            todoId: this.todoId
           }))
         ]);
     });
@@ -154,7 +154,7 @@ describe("Todos.Todo", function() {
         .when([
           new Todos.ReopenTodo(_.extend({}, {}, {
             targetId: this.todoListId,
-            id: this.todoId
+            todoId: this.todoId
           }))]
         )
         .expectToFailWith(new Todos.TodoCannotBeReopened());
