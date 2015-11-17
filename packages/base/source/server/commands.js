@@ -4,9 +4,18 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
     name: String
   },
 
-  CreateTodoItem: {
+  CreateTodo: {
+    id: Guid,
     title: String,
     isCompleted: Boolean
+  },
+
+  CompleteTodo: {
+    todoId: Guid
+  },
+
+  ReopenTodo: {
+    todoId: Guid
   }
 
 });
