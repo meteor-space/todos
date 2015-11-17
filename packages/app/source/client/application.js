@@ -1,4 +1,4 @@
-Todos.App = Space.Application.extend('Todos.App', {
+Space.Application.extend(Todos, 'App', {
 
   configuration: {},
 
@@ -6,8 +6,18 @@ Todos.App = Space.Application.extend('Todos.App', {
 
   stores: [],
 
-  controllers: [],
+  controllers: [
+    'Todos.RouteController',
+    'Todos.LayoutController'
+  ],
 
-  components: []
+  components: [
+    'Todos.LandingPage'
+  ],
+
+  onInitialize() {
+    this.injector.map('Layout').to(BlazeLayout);
+    this.injector.map('Router').to(FlowRouter);
+  }
 
 });

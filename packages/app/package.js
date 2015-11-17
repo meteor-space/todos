@@ -41,6 +41,21 @@ Package.onUse(function(api) {
 
   // CLIENT Configuration
   api.addFiles([
+    // STYLES
+    'source/client/client.css',
+    // LAYOUTS
+    'source/client/views/layouts/head.html',
+    'source/client/views/layouts/layout.html',
+    // PAGES
+    // --> landing page
+    'source/client/views/pages/index/landing-page.html',
+    'source/client/views/pages/index/landing-page.js',
+    // CONTROLLERS
+    'source/client/controllers/route-controller.js',
+    'source/client/controllers/layout-controller.js',
+    // APP
+    'source/client/events.js',
+    'source/client/router.js',
     'source/client/application.js'
   ], 'client');
 
