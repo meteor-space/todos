@@ -2,8 +2,6 @@ Todos.App = Space.Application.define('Todos.App', {
 
   configuration: {
     appId: 'Todos.App',
-    //todoListId: '18c18a9a-25da-42ab-84dd-61f3bfff6999',
-    //todoListId: new Guid('18c18a9a-25da-42ab-84dd-61f3bfff6999'),
     todoListName: 'My todos'
   },
 
