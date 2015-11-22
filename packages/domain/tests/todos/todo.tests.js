@@ -4,13 +4,12 @@ describe("Todos.Todo", function() {
     this.todoListId = new Guid();
     this.todoId = new Guid();
     this.todoListData = {
-      name: 'MyTodos'
+      name: 'MyTodos',
     };
     this.todoData = {
       title: 'My Todo',
       isCompleted: false
     };
-
   });
 
   describe("creating a new todo list", function() {
@@ -33,7 +32,7 @@ describe("Todos.Todo", function() {
     });
   });
 
-  describe("creating a new todo", function() {
+  /*describe("creating a new todo", function() {
 
     let todoListCreated = function() {
       return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
@@ -46,17 +45,21 @@ describe("Todos.Todo", function() {
       Todos.domain.test(Todos.TodoList)
         .given([todoListCreated.call(this)])
         .when(
-          new Todos.CreateTodo(_.extend({}, this.todoData, {
-            targetId: this.todoListId,
-            id: this.todoId
+          new Todos.CreateTodo(_.extend({}, {
+            id: this.todoId,
+            title: 'My todo'
+          }, {
+            targetId: this.todoListId
           }))
         )
         .expect([
-          new Todos.TodoCreated(_.extend({}, this.todoData, {
+          new Todos.TodoCreated(_.extend({}, {
+            id: this.todoId,
+            title: 'My todo'
+          }, {
             sourceId: this.todoListId,
             timestamp: new Date(),
-            version: 2,
-            id: this.todoId
+            version: 2
           }))
           //TODO: Should I check if todo item in array in aggregate instance?
         ]);
@@ -160,6 +163,6 @@ describe("Todos.Todo", function() {
         .expectToFailWith(new Todos.TodoCannotBeReopened());
     });
 
-  });
+  });*/
 
 });

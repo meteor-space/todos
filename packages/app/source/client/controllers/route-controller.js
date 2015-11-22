@@ -7,8 +7,6 @@ Space.Object.extend(Todos, 'RouteController', {
   eventSubscriptions() {
     return [{
       'Todos.RouteRequested'(event) {
-        console.log('Route requested');
-        console.dir(event);
         this.router.go(this.router.path(event.routeName));
       }
     }];

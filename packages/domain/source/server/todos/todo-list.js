@@ -69,7 +69,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     let todo = new Todos.TodoItem({
       id: event.id,
       title: event.title,
-      isCompleted: event.isCompleted
+      isCompleted: false
     });
 
     this.todos.push(todo);

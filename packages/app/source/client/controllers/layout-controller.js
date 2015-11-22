@@ -15,14 +15,18 @@ Space.Object.extend(Todos, 'LayoutController', {
       'Todos.RouteTriggered': function(event) {
         switch (event.routeName) {
         //case 'routeName': this._routeHanlder(); break;
-        default: this._renderLandingPage();
+        default: this._renderIndexPage();
         }
       }
     }];
   },
 
-  _renderLandingPage() {
-    this._render("layout", { main: "landing_page" });
+  _renderIndexPage() {
+    this._render('index', {
+      input: 'input',
+      todo_list: 'todo_list',
+      footer: 'footer'
+    });
   },
 
   _render(layout, sections) {

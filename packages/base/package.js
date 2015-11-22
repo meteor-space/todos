@@ -14,13 +14,13 @@ Package.onUse(function(api) {
     'check',
     'ecmascript',
     'space:messaging@2.1.0',
-    'space:domain@0.1.0',
+    'space:domain@0.1.0'
   ]);
 
   // SHARED
   api.addFiles([
     'source/namespace.js',
-    'source/shared/commands.js'
+    'source/shared/api-commands.js'
   ]);
 
   // SERVER ONLY

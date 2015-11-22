@@ -6,7 +6,7 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
 
   api.versionsFrom('1.2.1');
 
@@ -30,7 +30,7 @@ Package.onUse(function(api) {
     'space:event-sourcing@2.1.0',
     'space:flux@0.6.0',
     'todos:base',
-    'todos:domain'
+    'todos:domain',
   ]);
 
   // SERVER Configuration
@@ -39,20 +39,43 @@ Package.onUse(function(api) {
     'source/server/todos-api.js',
   ], 'server');
 
+  // SHARED configuration
+  api.addFiles([
+      'source/shared/todos-collection.js',
+      'source/shared/apis/todos-api.js'
+    ],
+    ['client', 'server']
+  );
+
   // CLIENT Configuration
   api.addFiles([
     // STYLES
     'source/client/client.css',
     // LAYOUTS
-    'source/client/views/layouts/head.html',
-    'source/client/views/layouts/layout.html',
+    'source/client/views/layout.html',
     // PAGES
-    // --> landing page
-    'source/client/views/pages/index/landing-page.html',
-    'source/client/views/pages/index/landing-page.js',
+    // --> index
+    'source/client/views/index.html',
+    // SECTIONS
+    // --> footer
+    'source/client/views/footer/footer.html',
+    'source/client/views/footer/footer.js',
+    // --> todos list
+    'source/client/views/todo_list/todo_list.html',
+    'source/client/views/todo_list/todo_list.js',
+    // COMPONENTS
+    //    --> todo
+    'source/client/views/todo_list/components/todo.html',
+    'source/client/views/todo_list/components/todo.js',
+    // --> input
+    'source/client/views/input/input.html',
+    'source/client/views/input/input.js',
     // CONTROLLERS
     'source/client/controllers/route-controller.js',
     'source/client/controllers/layout-controller.js',
+    'source/client/controllers/todos-controller.js',
+    //STORES
+    'source/client/stores/todos-store.js',
     // APP
     'source/client/events.js',
     'source/client/router.js',
@@ -66,7 +89,7 @@ Package.onUse(function(api) {
 
 });
 
-Package.onTest(function(api) {
+Package.onTest(function (api) {
 
   api.use([
     'mongo',

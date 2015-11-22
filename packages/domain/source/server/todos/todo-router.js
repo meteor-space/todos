@@ -1,4 +1,4 @@
-Space.eventSourcing.Router.extend(Todos, 'TodosRouter', {
+Space.eventSourcing.AggregateRouter.extend(Todos, 'TodosRouter', {
 
   aggregate: Todos.TodoList,
 
