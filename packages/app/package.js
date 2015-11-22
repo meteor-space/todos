@@ -36,7 +36,6 @@ Package.onUse(function (api) {
   // SERVER Configuration
   api.addFiles([
     'source/server/application.js',
-    'source/server/todos-api.js',
   ], 'server');
 
   // SHARED configuration
