@@ -25,11 +25,11 @@ Todos.App = Space.Application.define('Todos.App', {
   },
 
   onReset() {
-    this.injector.get('Todos.Todos').remove({})
+    this.injector.get('Todos.Todos').remove({});
   },
 
   _ensureTodoList() {
-    if(Todos.Todos.find(this.configuration.todoListId).count() === 0) {
+    if (Todos.Todos.find(this.configuration.todoListId.id).count() === 0) {
       this.send(new Todos.CreateTodoList({
         targetId: this.configuration.todoListId,
         name: this.configuration.todoListName
