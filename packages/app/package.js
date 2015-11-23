@@ -36,6 +36,7 @@ Package.onUse(function (api) {
   // SERVER Configuration
   api.addFiles([
     'source/server/application.js',
+    'source/server/projections/todos-projection.js',
   ], 'server');
 
   // SHARED configuration
@@ -78,6 +79,7 @@ Package.onUse(function (api) {
     // APP
     'source/client/events.js',
     'source/client/router.js',
+    'source/client/trackers/todos-tracker.js',
     'source/client/application.js'
   ], 'client');
 

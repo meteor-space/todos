@@ -3,7 +3,8 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
   // The store needs a reference to the todos collection
   dependencies: {
     todos: 'Todos.Todos',
-    configuration: 'configuration'
+    configuration: 'configuration',
+    tracker: 'Todos.Tracker'
   },
 
   // Todos example specific properties
@@ -46,7 +47,5 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
   activeTodos() {
     return this.todos.findActiveTodos();
   },
-
-
 
 });

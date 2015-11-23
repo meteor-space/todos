@@ -21,6 +21,7 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _createTodo(context, command) {
     if (context.isSimulation) {
+      this.todos.insert({title: event.title});
     } else {
       this.send(command);
     }

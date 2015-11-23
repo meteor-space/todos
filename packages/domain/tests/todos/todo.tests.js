@@ -32,7 +32,7 @@ describe("Todos.Todo", function() {
     });
   });
 
-  /*describe("creating a new todo", function() {
+  describe("creating a new todo", function() {
 
     let todoListCreated = function() {
       return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
@@ -66,7 +66,7 @@ describe("Todos.Todo", function() {
     });
   });
 
-  describe("completing todo", function() {
+  /*describe("completing todo", function() {
 
     let todoListWithUncompleteTodo = function() {
 

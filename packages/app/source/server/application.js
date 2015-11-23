@@ -9,7 +9,10 @@ Todos.App = Space.Application.define('Todos.App', {
     'Todos.domain'
   ],
 
-  singletons: ['Todos.TodosApi'],
+  singletons: [
+    'Todos.TodosApi',
+    'Todos.TodosProjection'
+  ],
 
   onStart() {
     this._ensureTodoList()
