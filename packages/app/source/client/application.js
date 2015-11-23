@@ -26,7 +26,7 @@ Space.Application.extend(Todos, 'App', {
 
   singletons: [
     'Todos.TodosApi',
-    'Todos.Tracker'
+    //'Todos.Tracker'
   ],
 
   onInitialize() {
