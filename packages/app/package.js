@@ -10,6 +10,10 @@ Package.onUse(function (api) {
 
   api.versionsFrom('1.2.1');
 
+  api.imply([
+    'todos:base'
+  ]);
+
   api.use([
     'meteor-base',
     'standard-minifiers',
@@ -90,6 +94,8 @@ Package.onUse(function (api) {
   api.addFiles([
     'source/startup.js',
   ]);
+
+
 
 });
 
