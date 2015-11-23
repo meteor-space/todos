@@ -35,13 +35,16 @@ Package.onUse(function (api) {
 
   // SERVER Configuration
   api.addFiles([
-    'source/server/application.js',
+    // PROJECTIONS
     'source/server/projections/todos-projection.js',
+    // PUBLICATIONS
+    'source/server/publications/publications.js',
+    'source/server/application.js',
   ], 'server');
 
   // SHARED configuration
   api.addFiles([
-      'source/shared/todos-collection.js',
+      'source/shared/collections/todos-collection.js',
       'source/shared/apis/todos-api.js'
     ],
     ['client', 'server']
