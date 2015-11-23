@@ -4,7 +4,6 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
   dependencies: {
     todos: 'Todos.Todos',
     configuration: 'configuration',
-    //tracker: 'Todos.Tracker'
   },
 
   // Todos example specific properties

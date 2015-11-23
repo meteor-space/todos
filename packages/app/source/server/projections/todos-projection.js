@@ -11,10 +11,10 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   },
 
   _onTodoCreated(event) {
-
-    console.log("TODO CREATED EVENT IN PROJECTION #######");
-
-    this.todos.insert({title: event.title});
+    this.todos.insert({
+      title: event.title,
+      isCompleted: event.isCompleted
+    });
   }
 
 });

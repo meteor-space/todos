@@ -72,8 +72,6 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       isCompleted: false
     });
 
-    console.log("TODO CREATED!!!!");
-
     this.todos.push(todo);
   },
 
