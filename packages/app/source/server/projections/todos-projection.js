@@ -11,10 +11,13 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   },
 
   _onTodoCreated(event) {
+
     this.todos.insert({
+      listId: event.sourceId,
       title: event.title,
       isCompleted: event.isCompleted
     });
+
   }
 
 });
