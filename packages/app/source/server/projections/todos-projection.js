@@ -13,7 +13,7 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   _onTodoCreated(event) {
 
     this.todos.insert({
-      listId: event.sourceId,
+      listId: event.sourceId.toString(),
       title: event.title,
       isCompleted: event.isCompleted
     });
