@@ -6,7 +6,8 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
 
   CreateTodo: {
     id: Guid,
-    title: String
+    title: String,
+    isCompleted: Boolean
   },
 
   CompleteTodo: {
