@@ -21,6 +21,6 @@
   },
   "space:testing": {
     "git":"https://github.com/meteor-space/testing.git",
-    "branch": "develop"
+    "branch": "feature/add-given-method-for-api-tests"
   }
 }
