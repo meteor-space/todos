@@ -8,9 +8,12 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
   RouteTriggered: {
     routeName: String,
     params: Match.Optional(Object)
+  },
+
+  // ======= UI events =======
+
+  TodoCreated: {
+    title: String
   }
-
-  // ======= Flux events =======
-
 
 });

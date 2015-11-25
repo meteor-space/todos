@@ -6,7 +6,7 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Package.onUse(function (api) {
+Package.onUse(function(api) {
 
   api.versionsFrom('1.2.1');
 
@@ -21,12 +21,12 @@ Package.onUse(function (api) {
   api.addFiles([
     'source/shared/namespace.js',
     'source/shared/api-commands.js',
-    'source/shared/events.js',
   ]);
 
   // SERVER ONLY
   api.addFiles([
     'source/server/errors.js',
+    'source/server/events.js',
     'source/server/entities/todo-item.js'
   ], 'server');
 

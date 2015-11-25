@@ -14,9 +14,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Input', {
           // Tell mediator about it
           var input = this.$('#new-todo').val();
           this.publish(new Todos.TodoCreated({
-            id: new Guid(),
-            title: input,
-            isCompleted: false
+            title: input
           }));
 
           // Reset input

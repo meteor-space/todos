@@ -14,8 +14,8 @@ Space.messaging.Controller.extend(Todos, 'TodosController', {
     this.send(new Todos.CreateTodo({
       targetId: this.configuration.todoListId,
       title: event.title,
-      id: event.id,
-      isCompleted: event.isCompleted
+      id: new Guid(),
+      isCompleted: false
     }));
   }
 
