@@ -19,14 +19,13 @@ Package.onUse(function (api) {
 
   // SHARED
   api.addFiles([
-      'source/shared/namespace.js',
-      'source/shared/api-commands.js'
-    ],
-    ['client', 'server']);
+    'source/shared/namespace.js',
+    'source/shared/api-commands.js',
+    'source/shared/events.js',
+  ]);
 
   // SERVER ONLY
   api.addFiles([
-    'source/server/events.js',
     'source/server/errors.js',
     'source/server/entities/todo-item.js'
   ], 'server');
