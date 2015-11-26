@@ -7,6 +7,7 @@ Space.messaging.Controller.extend(Todos, 'TodosController', {
   eventSubscriptions() {
     return [{
       'Todos.TodoCreated': this._onTodoCreated,
+      'Todos.TodoToggled': this._onTodoToggled,
     }];
   },
 
@@ -17,6 +18,20 @@ Space.messaging.Controller.extend(Todos, 'TodosController', {
       id: new Guid(),
       isCompleted: false
     }));
+  },
+
+  _onTodoToggled(event) {
+    if (event.isCompleted) {
+      this.send(new Todos.ReopenTodo({
+        targetId: this.configuration.todoListId,
+        todoId: new Guid(event.id)
+      }));
+    } else {
+      this.send(new Todos.CompleteTodo({
+        targetId: this.configuration.todoListId,
+        todoId: new Guid(event.id)
+      }));
+    }
   }
 
 });

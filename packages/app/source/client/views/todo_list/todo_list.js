@@ -44,7 +44,8 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
 
   toggleTodo() {
     this.publish(new Todos.TodoToggled({
-      todoId: this.currentData()._id
+      id: this.currentData().id,
+      isCompleted: this.currentData().isCompleted
     }));
   },
 

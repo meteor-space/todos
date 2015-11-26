@@ -7,7 +7,9 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   eventSubscriptions() {
     return [{
       'Todos.TodoListCreated': this._onTodoListCreated,
-      'Todos.TodoCreated': this._onTodoCreated
+      'Todos.TodoCreated': this._onTodoCreated,
+      'Todos.TodoCompleted': this._onTodoCompleted,
+      'Todos.TodoReopened': this._onTodoReopened
     }];
   },
 
@@ -15,7 +17,8 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
 
     this.todos.insert({
       _id: event.sourceId.toString(),
-      name: event.name
+      name: event.name,
+      todos: []
     });
   },
 
@@ -26,6 +29,22 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
         title: event.title,
         isCompleted: event.isCompleted
       }}
+    });
+  },
+
+  _onTodoCompleted(event) {
+    this.todos.update({_id: event.sourceId.toString, 'todos.id': event.todoId.toString()}, {
+      $set: {
+        'todos.$.isCompleted': true
+      }
+    });
+  },
+
+  _onTodoReopened(event) {
+    this.todos.update({_id: event.sourceId.toString, 'todos.id': event.todoId.toString()}, {
+      $set: {
+        'todos.$.isCompleted': false
+      }
     });
   }
 

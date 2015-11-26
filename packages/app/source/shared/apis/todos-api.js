@@ -17,7 +17,8 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
     if (context.isSimulation) {
       this.todos.insert({
         _id: event.sourceId.toString(),
-        name: event.name
+        name: event.name,
+        todos: []
       });
     } else {
       this.send(command);
@@ -40,7 +41,11 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _completeTodo(context, command) {
     if (context.isSimulation) {
-      // TODO
+      this.todos.update({_id: command.targetId.toString, 'todos.id': command.todoId.toString()}, {
+        $set: {
+          'todos.$.isCompleted': true
+        }
+      });
     } else {
       this.send(command);
     }
@@ -48,7 +53,11 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _reopenTodo(context, command) {
     if (context.isSimulation) {
-      // TODO
+      this.todos.update({_id: command.targetId.toString, 'todos.id': command.todoId.toString()}, {
+        $set: {
+          'todos.$.isCompleted': false
+        }
+      });
     } else {
       this.send(command);
     }

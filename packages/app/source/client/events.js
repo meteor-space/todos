@@ -15,6 +15,11 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
 
   TodoCreated: {
     title: String
+  },
+
+  TodoToggled: {
+    id: String,
+    isCompleted: Boolean
   }
 
 });
