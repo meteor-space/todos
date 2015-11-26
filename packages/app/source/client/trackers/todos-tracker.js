@@ -5,9 +5,9 @@ Space.messaging.Tracker.extend(Todos, 'TodosTracker', {
     meteor: 'Meteor'
   },
 
-  // Reactively subscribe to the todos data based on the active filter
+  // Reactively subscribe to the todos data based on configured list id
   autorun() {
-    this.meteor.subscribe('todos', this.store.activeFilter());
+    this.meteor.subscribe('todos', this.store.configuration.todoListId.toString());
   }
 
 });

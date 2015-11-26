@@ -4,7 +4,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Input', {
     this.register('input');
   },
 
-  events: function () {
+  events: function() {
     return [{
       'keyup #new-todo': function (event) {
 

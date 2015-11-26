@@ -15,7 +15,10 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _createTodoList(context, command) {
     if (context.isSimulation) {
-      // TODO
+      this.todos.insert({
+        _id: event.sourceId.toString(),
+        name: event.name
+      });
     } else {
       this.send(command);
     }
@@ -23,10 +26,12 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _createTodo(context, command) {
     if (context.isSimulation) {
-      this.todos.insert({
-        listId: event.sourceId,
-        title: event.title,
-        isCompleted: event.isCompleted
+      this.todos.update(event.sourceId, {
+        $push: { todos: {
+          id: event.id,
+          title: event.title,
+          isCompleted: event.isCompleted
+        }}
       });
     } else {
       this.send(command);

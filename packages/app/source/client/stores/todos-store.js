@@ -13,6 +13,17 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
     COMPLETED: 'completed'
   },
 
+  // ====== Event handling setup ====== //
+
+  // Map private methods to events coming from the outside
+  // this is the only way state can change within the store.
+
+  eventSubscriptions() {
+    return [{
+      'Todos.RouteTriggered': this._changeActiveFilter
+    }];
+  },
+
   // ====== Public reactive data accessors ======= //
 
   // These methods can be used by other parts of the system to
@@ -20,7 +31,8 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   reactiveVars() {
     return [{
-      activeFilter: this.FILTERS.ALL
+      activeFilter: this.FILTERS.ACTIVE,
+      todoListDocument: {}
     }];
   },
 
@@ -30,21 +42,63 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
     }];
   },
 
+  computations() {
+    return [
+      this._calcTodoListDocument
+    ];
+  },
+
+  _calcTodoListDocument() {
+    let todoListId = this.configuration.todoListId.toString();
+    let todoListDocument = this.todos.findOne({_id: todoListId});
+    this._setReactiveVar('todoListDocument', todoListDocument);
+  },
+
   filteredTodos() {
-    switch (this.activeFilter()) {
-      case this.FILTERS.ALL: return this.todos.find();
-      case this.FILTERS.ACTIVE: return this.todos.find({ isCompleted: false});
-      case this.FILTERS.COMPLETED: return this.todos.find({ isCompleted: true });
-      default: this.todos.find();
+    if (this.todoListDocument()) {
+      switch (this.activeFilter()) {
+      case this.FILTERS.ALL: return this.todoListDocument().todos;
+      case this.FILTERS.ACTIVE: return this._getTodosByState(false);
+      case this.FILTERS.COMPLETED: return this._getTodosByState(true);
+      default: return this.todoListDocument().todos;
+      }
+    } else {
+      return [];
+    }
+  },
+
+  activeTodos() {
+    if (this.todoListDocument()) {
+      return this._getTodosByState(false);
+    } else {
+      return [];
     }
   },
 
   completedTodos() {
-    return this.todos.findCompletedTodos();
+    if (this.todoListDocument()) {
+      return this._getTodosByState(false);
+    } else {
+      return [];
+    }
   },
 
-  activeTodos() {
-    return this.todos.findActiveTodos();
+  _changeActiveFilter(event) {
+    this._setReactiveVar('activeFilter', event.params.filter);
   },
+
+  // ============= HELPERS ============
+
+  _getTodosByState(isCompleted) {
+    let foundTodos = [];
+    if (this.todoListDocument()) {
+      for (let todo of this.todoListDocument().todos) {
+        if (todo.isCompleted === isCompleted) {
+          foundTodos.push(todo);
+        }
+      }
+    }
+    return foundTodos;
+  }
 
 });

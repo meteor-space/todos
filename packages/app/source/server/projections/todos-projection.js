@@ -6,18 +6,27 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
 
   eventSubscriptions() {
     return [{
-      'Todos.TodoCreated': this._onTodoCreated,
+      'Todos.TodoListCreated': this._onTodoListCreated,
+      'Todos.TodoCreated': this._onTodoCreated
     }];
   },
 
-  _onTodoCreated(event) {
+  _onTodoListCreated(event) {
 
     this.todos.insert({
-      listId: event.sourceId.toString(),
-      title: event.title,
-      isCompleted: event.isCompleted
+      _id: event.sourceId.toString(),
+      name: event.name
     });
+  },
 
+  _onTodoCreated(event) {
+    this.todos.update(event.sourceId.toString, {
+      $push: { todos: {
+        id: event.id.toString(),
+        title: event.title,
+        isCompleted: event.isCompleted
+      }}
+    });
   }
 
 });

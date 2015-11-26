@@ -24,3 +24,4 @@ let generateRoute = function(routeName) {
 };
 
 FlowRouter.route('/', generateRoute('landingPage'));
+FlowRouter.route('/:filter', generateRoute('landingPage'));
