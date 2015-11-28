@@ -4,8 +4,8 @@ describe('Todos.Api', function() {
 
     this.todoListId = new Guid();
 
-    this.uncompletedTodoId = new Guid();
-    this.completedTodoId = new Guid();
+    /*this.uncompletedTodoId = new Guid();
+    this.completedTodoId = new Guid();*/
 
     this.createTodoListCommand = new Todos.CreateTodoList({
       targetId: this.todoListId,
@@ -13,7 +13,7 @@ describe('Todos.Api', function() {
       version: 1
     });
 
-    this.todoListCreatedEvent = new Todos.TodoListCreated({
+    /*this.todoListCreatedEvent = new Todos.TodoListCreated({
       sourceId: this.todoListId,
       name: 'MyTodos'
     });
@@ -46,7 +46,7 @@ describe('Todos.Api', function() {
       id: this.completedTodoId,
       title: 'My Todo',
       isCompleted: true
-    });
+    });*/
 
   });
 
@@ -57,7 +57,7 @@ describe('Todos.Api', function() {
       .expect([this.createTodoListCommand]);
   });
 
-  it('receives a command for creating a todo and sends it on the server-side command bus when valid', function() {
+  /*it('receives a command for creating a todo and sends it on the server-side command bus when valid', function() {
 
     Todos.App.test(Todos.TodosApi)
       .given([this.todoListCreatedEvent])
@@ -115,6 +115,6 @@ describe('Todos.Api', function() {
       .given([this.todoListCreatedEvent, this.uncompletedTodoCreatedEvent])
       .send(reopenTodoCommand)
       .expectToFailWith(new Todos.TodoCannotBeReopened());
-  });
+  });*/
 
 });
