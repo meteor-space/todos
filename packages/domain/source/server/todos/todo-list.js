@@ -1,5 +1,7 @@
 Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
+  onExtending() {this.type('Todos.TodoList');},
+
   fields: {
     name: String,
     todos: [Todos.TodoItem]

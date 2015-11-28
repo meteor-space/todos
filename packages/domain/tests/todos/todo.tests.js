@@ -134,7 +134,12 @@ describe("Todos.Todo", function() {
             todoId: this.todoId
           }))]
         )
-        .expectToFailWith(new Todos.TodoCannotBeCompleted());
+        .expect([
+          new Space.domain.Exception({
+            thrower: 'Todos.TodoList',
+            error: new Todos.TodoCannotBeCompleted()
+          })
+        ]);
     });
 
     it("reopens todo", function() {
@@ -165,7 +170,12 @@ describe("Todos.Todo", function() {
             todoId: this.todoId
           }))]
         )
-        .expectToFailWith(new Todos.TodoCannotBeReopened());
+        .expect([
+          new Space.domain.Exception({
+            thrower: 'Todos.TodoList',
+            error: new Todos.TodoCannotBeReopened()
+          })
+        ]);
     });
 
   });
