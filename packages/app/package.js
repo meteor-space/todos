@@ -6,9 +6,13 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Package.onUse(function(api) {
+Package.onUse(function (api) {
 
   api.versionsFrom('1.2.1');
+
+  api.imply([
+    'todos:base'
+  ]);
 
   api.use([
     'meteor-base',
@@ -30,17 +34,59 @@ Package.onUse(function(api) {
     'space:event-sourcing@2.1.0',
     'space:flux@0.6.0',
     'todos:base',
-    'todos:domain'
+    'todos:domain',
   ]);
 
   // SERVER Configuration
   api.addFiles([
+    // PROJECTIONS
+    'source/server/projections/todos-projection.js',
+    // PUBLICATIONS
+    'source/server/publications/publications.js',
     'source/server/application.js',
-    'source/server/todos-api.js',
   ], 'server');
+
+  // SHARED configuration
+  api.addFiles([
+      'source/shared/collections/todos-collection.js',
+      'source/shared/apis/todos-api.js'
+    ],
+    ['client', 'server']
+  );
 
   // CLIENT Configuration
   api.addFiles([
+    // STYLES
+    'source/client/client.css',
+    // LAYOUTS
+    'source/client/views/layout.html',
+    // PAGES
+    // --> index
+    'source/client/views/index.html',
+    // SECTIONS
+    // --> footer
+    'source/client/views/footer/footer.html',
+    'source/client/views/footer/footer.js',
+    // --> todos list
+    'source/client/views/todo_list/todo_list.html',
+    'source/client/views/todo_list/todo_list.js',
+    // COMPONENTS
+    //    --> todo
+    'source/client/views/todo_list/components/todo.html',
+    'source/client/views/todo_list/components/todo.js',
+    // --> input
+    'source/client/views/input/input.html',
+    'source/client/views/input/input.js',
+    // CONTROLLERS
+    'source/client/controllers/route-controller.js',
+    'source/client/controllers/layout-controller.js',
+    'source/client/controllers/todos-controller.js',
+    //STORES
+    'source/client/stores/todos-store.js',
+    // APP
+    'source/client/events.js',
+    'source/client/router.js',
+    'source/client/trackers/todos-tracker.js',
     'source/client/application.js'
   ], 'client');
 
@@ -49,9 +95,11 @@ Package.onUse(function(api) {
     'source/startup.js',
   ]);
 
+
+
 });
 
-Package.onTest(function(api) {
+Package.onTest(function (api) {
 
   api.use([
     'mongo',

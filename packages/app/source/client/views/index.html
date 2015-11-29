@@ -1,0 +1,34 @@
+
+<template name="index">
+
+  <section id="todoapp">
+
+    <header id="header">
+      <h1>todos</h1>
+      {{> Template.dynamic template=input}}
+    </header>
+
+    <section id="main">
+      {{> Template.dynamic template=todo_list}}
+    </section>
+
+    <footer id="footer">
+      {{> Template.dynamic template=footer}}
+    </footer>
+
+  </section>
+
+  <footer id="info">
+    <strong>Double-click to edit a todo</strong>
+
+    <p><a href="https://github.com/meteor-space/todos">Todos</a> app, <a href="http://github.com/Meteor-Space">Meteor
+      Space</a> port
+      of <a href="http://todomvc.com/">TodoMVC</a>
+      &nbsp;&nbsp;
+    </p>
+
+    <p>by Darko Mijić - <a href="https://github.com/darko-mijic">GitHub</a></p>
+
+  </footer>
+
+</template>

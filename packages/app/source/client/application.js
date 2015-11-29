@@ -1,13 +1,39 @@
-Todos.App = Space.Application.extend('Todos.App', {
+Space.Application.extend(Todos, 'App', {
 
-  configuration: {},
+  configuration: {
+    appId: 'Todos.App',
+  },
 
-  requiredModules: [],
+  requiredModules: [
+    'Space.flux'
+  ],
 
-  stores: [],
+  stores: [
+    'Todos.TodosStore'
+  ],
 
-  controllers: [],
+  controllers: [
+    'Todos.RouteController',
+    'Todos.LayoutController',
+    'Todos.TodosController',
+  ],
 
-  components: []
+  components: [
+    'Todos.Input',
+    'Todos.TodoList',
+    'Todos.Footer',
+  ],
+
+  singletons: [
+    'Todos.TodosApi',
+    'Todos.TodosTracker'
+  ],
+
+  onInitialize() {
+    this.injector.map('Layout').to(BlazeLayout);
+    this.injector.map('Router').to(FlowRouter);
+    this.injector.map('Todos.Todos').to(Todos.Todos);
+    this.configuration.todoListId = new Guid('18c18a9a-25da-42ab-84dd-61f3bfff6999');
+  }
 
 });

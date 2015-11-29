@@ -1,5 +1,7 @@
 Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
+  onExtending() {this.type('Todos.TodoList');},
+
   fields: {
     name: String,
     todos: [Todos.TodoItem]
@@ -35,7 +37,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   _completeTodo(command) {
 
-    let todo = this._findTodoById(command.todoId.id);
+    let todo = this._getTodoById(command.todoId);
 
     if (todo instanceof Todos.TodoItem && todo.isCompleted === true) {
       throw new Todos.TodoCannotBeCompleted();
@@ -47,7 +49,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   _reopenTodo(command) {
 
-    let todo = this._findTodoById(command.todoId.id);
+    let todo = this._getTodoById(command.todoId);
 
     if (todo instanceof Todos.TodoItem && todo.isCompleted === false) {
       throw new Todos.TodoCannotBeReopened();
@@ -76,26 +78,29 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _onTodoCompleted(event) {
-    let todo = this._findTodoById(event.todoId.id);
+    let todo = this._getTodoById(event.todoId);
     todo.isCompleted = true;
   },
 
   _onTodoReopened(event) {
-    let todo = this._findTodoById(event.todoId.id);
+    let todo = this._getTodoById(event.todoId);
     todo.isCompleted = false;
   },
 
   // ============= HELPERS ============
 
-  _findTodoById(id) {
-
-    let todo = _.find(this.todos, function(todo) {
-      return (todo.id.id === id);
-    });
-
-    return todo;
+  _getTodoById(id) {
+    let foundTodo = null;
+    for (let todo of this.todos) {
+      if (todo.getId().equals(id)) {
+        foundTodo = todo;
+      }
+    }
+    if (foundTodo === null) {
+      throw new Todos.TodoNotFoundError(id);
+    }
+    return foundTodo;
   }
-
 });
 
 Todos.TodoList.registerSnapshotType(`Todos.TodoList`);
