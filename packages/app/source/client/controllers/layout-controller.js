@@ -1,5 +1,9 @@
 Space.Object.extend(Todos, 'LayoutController', {
 
+  mixin: [
+    Space.messaging.EventSubscribing
+  ],
+
   dependencies: {
     layout: 'Layout',
     _: 'underscore'
@@ -40,7 +44,3 @@ Space.Object.extend(Todos, 'LayoutController', {
   }
 
 });
-
-Todos.LayoutController.mixin([
-  Space.messaging.EventSubscribing
-]);

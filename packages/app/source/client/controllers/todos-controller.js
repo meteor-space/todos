@@ -1,4 +1,9 @@
-Space.messaging.Controller.extend(Todos, 'TodosController', {
+Space.Object.extend(Todos, 'TodosController', {
+
+  mixin: [
+    Space.messaging.EventSubscribing,
+    Space.messaging.CommandSending
+  ],
 
   dependencies: {
     configuration: 'configuration'
