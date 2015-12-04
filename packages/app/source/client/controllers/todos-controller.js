@@ -13,7 +13,8 @@ Space.Object.extend(Todos, 'TodosController', {
   eventSubscriptions() {
     return [{
       'Todos.TodoCreated': this._onTodoCreated,
-      'Todos.TodoToggled': this._onTodoToggled,
+      'Todos.TodoReopened': this._onTodoReopened,
+      'Todos.TodoCompleted': this._onTodoCompleted,
       'Todos.TodoRemoved': this._onTodoRemoved,
       'Todos.AllTodosToggled': this._onAllTodosToggled,
       'Todos.CompletedTodosCleared': this._onCompletedTodosCleared,
@@ -29,18 +30,18 @@ Space.Object.extend(Todos, 'TodosController', {
     }));
   },
 
-  _onTodoToggled(event) {
-    if (event.isCompleted) {
-      this.send(new Todos.ReopenTodo({
-        targetId: this.configuration.todoListId,
-        todoId: new Guid(event.id)
-      }));
-    } else {
-      this.send(new Todos.CompleteTodo({
-        targetId: this.configuration.todoListId,
-        todoId: new Guid(event.id)
-      }));
-    }
+  _onTodoReopened(event) {
+    this.send(new Todos.ReopenTodo({
+      targetId: this.configuration.todoListId,
+      todoId: new Guid(event.todoId)
+    }));
+  },
+
+  _onTodoCompleted(event) {
+    this.send(new Todos.CompleteTodo({
+      targetId: this.configuration.todoListId,
+      todoId: new Guid(event.todoId)
+    }));
   },
 
   _onTodoRemoved(event) {

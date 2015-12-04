@@ -43,10 +43,15 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
   },
 
   toggleTodo() {
-    this.publish(new Todos.TodoToggled({
-      id: this.currentData().id,
-      isCompleted: this.currentData().isCompleted
-    }));
+    if (this.currentData().isCompleted) {
+      this.publish(new Todos.TodoReopened({
+        todoId: this.currentData().id
+      }));
+    } else {
+      this.publish(new Todos.TodoCompleted({
+        todoId: this.currentData().id
+      }));
+    }
   },
 
   removeTodo() {
