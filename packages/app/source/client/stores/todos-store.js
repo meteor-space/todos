@@ -2,7 +2,7 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   // The store needs a reference to the todos collection
   dependencies: {
-    todos: 'Todos.Todos',
+    todos: 'Todos.TodoLists',
     configuration: 'configuration',
   },
 

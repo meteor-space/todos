@@ -32,7 +32,7 @@ Space.Application.extend(Todos, 'App', {
   onInitialize() {
     this.injector.map('Layout').to(BlazeLayout);
     this.injector.map('Router').to(FlowRouter);
-    this.injector.map('Todos.Todos').to(Todos.Todos);
+    this.injector.map('Todos.TodoLists').to(Todos.TodoLists);
     this.configuration.todoListId = new Guid('18c18a9a-25da-42ab-84dd-61f3bfff6999');
   }
 

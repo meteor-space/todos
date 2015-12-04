@@ -1,7 +1,7 @@
 Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
 
   collections: {
-    todos: 'Todos.Todos'
+    todos: 'Todos.TodoLists'
   },
 
   eventSubscriptions() {
