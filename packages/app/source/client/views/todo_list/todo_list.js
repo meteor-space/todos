@@ -34,7 +34,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
   events() {
     return [{
       'toggled .todo': this.toggleTodo,
-      'destroyed .todo': this.deleteTodo,
+      'destroyed .todo': this.removeTodo,
       'doubleClicked .todo': this.editTodo,
       'editingCanceled .todo': this.stopEditing,
       'editingCompleted .todo': this.submitNewTitle,
@@ -49,8 +49,8 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
     }));
   },
 
-  deleteTodo() {
-    this.publish(new Todos.TodoDeleted({
+  removeTodo() {
+    this.publish(new Todos.TodoRemoved({
       todoId: this.currentData().id
     }));
   },

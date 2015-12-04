@@ -22,7 +22,7 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
     isCompleted: Boolean
   },
 
-  TodoDeleted: {
+  TodoRemoved: {
     todoId: String
   },
 

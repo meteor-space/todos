@@ -14,7 +14,7 @@ Space.Object.extend(Todos, 'TodosController', {
     return [{
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoToggled': this._onTodoToggled,
-      'Todos.TodoDeleted': this._onTodoDeleted,
+      'Todos.TodoRemoved': this._onTodoRemoved,
       'Todos.AllTodosToggled': this._onAllTodosToggled,
       'Todos.CompletedTodosCleared': this._onCompletedTodosCleared
     }];
@@ -42,8 +42,8 @@ Space.Object.extend(Todos, 'TodosController', {
     }
   },
 
-  _onTodoDeleted(event) {
-    this.send(new Todos.DeleteTodo({
+  _onTodoRemoved(event) {
+    this.send(new Todos.RemoveTodo({
       targetId: this.configuration.todoListId,
       todoId: new Guid(event.todoId)
     }));
@@ -70,7 +70,7 @@ Space.Object.extend(Todos, 'TodosController', {
   _onCompletedTodosCleared(event) {
     if (this.todosStore.completedTodos().length > 0) {
       for (let todo of this.todosStore.completedTodos()) {
-        this.send(new Todos.DeleteTodo({
+        this.send(new Todos.RemoveTodo({
           targetId: this.configuration.todoListId,
           todoId: new Guid(todo.id)
         }));

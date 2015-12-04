@@ -18,7 +18,7 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
     todoId: Guid
   },
 
-  TodoDeleted: {
+  TodoRemoved: {
     todoId: Guid
   },
 

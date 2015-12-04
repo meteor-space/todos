@@ -17,7 +17,7 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
     todoId: Guid
   },
 
-  DeleteTodo: {
+  RemoveTodo: {
     todoId: Guid
   }
 

@@ -10,7 +10,7 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoCompleted': this._onTodoCompleted,
       'Todos.TodoReopened': this._onTodoReopened,
-      'Todos.TodoDeleted': this._onTodoDeleted
+      'Todos.TodoRemoved': this._onTodoRemoved
     }];
   },
 
@@ -49,7 +49,7 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
     });
   },
 
-  _onTodoDeleted(event) {
+  _onTodoRemoved(event) {
     let removeTodo = {$pull:{todos: {id: event.todoId.toString()}}};
     this.todos.update({'_id': event.sourceId.toString()}, removeTodo);
   }

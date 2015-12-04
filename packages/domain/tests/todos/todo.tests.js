@@ -166,7 +166,7 @@ describe("Todos.Todo", function() {
   });
 
 
-  describe("deleting todo", function() {
+  describe("removing todo", function() {
 
     let todoListWithTodo = function() {
 
@@ -182,17 +182,17 @@ describe("Todos.Todo", function() {
       return [listCreated, todoCreated];
     };
 
-    it("deletes todo", function() {
+    it("removes todo", function() {
       Todos.domain.test(Todos.TodoList)
         .given(todoListWithTodo.call(this))
         .when([
-          new Todos.DeleteTodo(_.extend({}, {
+          new Todos.RemoveTodo(_.extend({}, {
             targetId: this.todoListId,
             todoId: this.todoId
           }))]
         )
         .expect([
-          new Todos.TodoDeleted(_.extend({}, {
+          new Todos.TodoRemoved(_.extend({}, {
             todoId: this.todoId,
             sourceId: this.todoListId
           }))
