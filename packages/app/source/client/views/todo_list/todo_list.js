@@ -77,7 +77,19 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
   },
 
   toggleAllTodos() {
-    this.publish(new Todos.AllTodosToggled());
+    if (this.store.activeTodos().length > 0) {
+      for (let todo of this.store.activeTodos()) {
+        this.publish(new Todos.TodoCompleted({
+          todoId: todo.id
+        }));
+      }
+    } else {
+      for (let todo of this.store.completedTodos()) {
+        this.publish(new Todos.TodoReopened({
+          todoId: todo.id
+        }));
+      }
+    }
   },
 
   stopEditing() {
