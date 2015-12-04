@@ -66,13 +66,8 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _deleteTodo(context, command) {
     if (context.isSimulation) {
-      let todoToRemove = {};
-      todoToRemove['id'] = command.todoId.toString();
-      this.todos.update({'_id': command.targetId.toString()}, {
-        $pull: {
-          todos: todoToRemove
-        }
-      });
+      let removeTodo = {$pull:{todos: {id: command.todoId.toString()}}};
+      this.todos.update({'_id': command.targetId.toString()}, removeTodo);
     } else {
       this.send(command);
     }

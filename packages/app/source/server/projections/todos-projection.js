@@ -50,13 +50,8 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   },
 
   _onTodoDeleted(event) {
-    let todoToRemove = {};
-    todoToRemove['id'] = event.todoId.toString();
-    this.todos.update({'_id': event.sourceId.toString()}, {
-      $pull: {
-        todos: todoToRemove
-      }
-    });
+    let removeTodo = {$pull:{todos: {id: event.todoId.toString()}}};
+    this.todos.update({'_id': event.sourceId.toString()}, removeTodo);
   }
 
 });
