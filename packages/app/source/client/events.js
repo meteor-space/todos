@@ -29,8 +29,6 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
     todoId: String
   },
 
-  CompletedTodosCleared: {},
-
   TodoEditingStarted: {
     todoId: String
   },

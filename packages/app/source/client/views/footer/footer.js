@@ -29,7 +29,13 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
   events() {
     return [{
       'click #clear-completed'() {
-        this.publish(new Todos.CompletedTodosCleared());
+        if (this.store.completedTodos().length > 0) {
+          for (let todo of this.store.completedTodos()) {
+            this.publish(new Todos.TodoRemoved({
+              todoId: todo.id
+            }));
+          }
+        }
       }
     }];
   },
