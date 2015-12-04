@@ -20,6 +20,10 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
 
   TodoDeleted: {
     todoId: Guid
-  }
+  },
+
+  AllTodosCompleted: {},
+
+  AllTodosReopened: {}
 
 });

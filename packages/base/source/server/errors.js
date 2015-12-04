@@ -13,3 +13,11 @@ Space.Error.extend(Todos, 'TodoNotFoundError', {
     this.message = `No todo with id ${todoId} found.`;
   }
 });
+
+Space.Error.extend(Todos, 'NoCompletedTodosToReopen', {
+  message: 'There are no completed todos to reopen.'
+});
+
+Space.Error.extend(Todos, 'NoOpenTodosToComplete', {
+  message: 'There are no open todos to complete.'
+});

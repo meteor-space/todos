@@ -72,7 +72,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
   },
 
   toggleAllTodos() {
-    this.meteor.call('toggleAllTodos');
+    this.publish(new Todos.AllTodosToggled());
   },
 
   stopEditing() {

@@ -61,7 +61,6 @@ describe("Todos.Todo", function() {
             id: Guid,
             sourceId: this.todoListId
           }))
-          //TODO: Should I check if todo item in array in aggregate instance?
         ]);
     });
   });
