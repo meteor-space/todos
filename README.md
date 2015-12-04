@@ -16,7 +16,7 @@ Space http://todomvc.com/ implementation
 
   `cd <space-todos>`
 
-3. Install MGP (on time only)
+3. Install MGP (one time only)
 
   `npm install -g mgp`
  
