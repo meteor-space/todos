@@ -9,7 +9,8 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
       'Todos.CreateTodoList': this._createTodoList,
       'Todos.CreateTodo': this._createTodo,
       'Todos.CompleteTodo': this._completeTodo,
-      'Todos.ReopenTodo': this._reopenTodo
+      'Todos.ReopenTodo': this._reopenTodo,
+      'Todos.DeleteTodo': this._deleteTodo
     }];
   },
 
@@ -41,7 +42,7 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _completeTodo(context, command) {
     if (context.isSimulation) {
-      this.todos.update({_id: command.targetId.toString, 'todos.id': command.todoId.toString()}, {
+      this.todos.update({_id: command.targetId.toString(), 'todos.id': command.todoId.toString()}, {
         $set: {
           'todos.$.isCompleted': true
         }
@@ -53,9 +54,23 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
 
   _reopenTodo(context, command) {
     if (context.isSimulation) {
-      this.todos.update({_id: command.targetId.toString, 'todos.id': command.todoId.toString()}, {
+      this.todos.update({_id: command.targetId.toString(), 'todos.id': command.todoId.toString()}, {
         $set: {
           'todos.$.isCompleted': false
+        }
+      });
+    } else {
+      this.send(command);
+    }
+  },
+
+  _deleteTodo(context, command) {
+    if (context.isSimulation) {
+      let todoToRemove = {};
+      todoToRemove['id'] = command.todoId.toString();
+      this.todos.update({'_id': command.targetId.toString()}, {
+        $pull: {
+          todos: todoToRemove
         }
       });
     } else {

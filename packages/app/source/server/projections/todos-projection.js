@@ -9,7 +9,8 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
       'Todos.TodoListCreated': this._onTodoListCreated,
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoCompleted': this._onTodoCompleted,
-      'Todos.TodoReopened': this._onTodoReopened
+      'Todos.TodoReopened': this._onTodoReopened,
+      'Todos.TodoDeleted': this._onTodoDeleted
     }];
   },
 
@@ -23,7 +24,7 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   },
 
   _onTodoCreated(event) {
-    this.todos.update(event.sourceId.toString, {
+    this.todos.update(event.sourceId.toString(), {
       $push: { todos: {
         id: event.id.toString(),
         title: event.title,
@@ -33,7 +34,7 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   },
 
   _onTodoCompleted(event) {
-    this.todos.update({_id: event.sourceId.toString, 'todos.id': event.todoId.toString()}, {
+    this.todos.update({_id: event.sourceId.toString(), 'todos.id': event.todoId.toString()}, {
       $set: {
         'todos.$.isCompleted': true
       }
@@ -41,9 +42,19 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   },
 
   _onTodoReopened(event) {
-    this.todos.update({_id: event.sourceId.toString, 'todos.id': event.todoId.toString()}, {
+    this.todos.update({_id: event.sourceId.toString(), 'todos.id': event.todoId.toString()}, {
       $set: {
         'todos.$.isCompleted': false
+      }
+    });
+  },
+
+  _onTodoDeleted(event) {
+    let todoToRemove = {};
+    todoToRemove['id'] = event.todoId.toString();
+    this.todos.update({'_id': event.sourceId.toString()}, {
+      $pull: {
+        todos: todoToRemove
       }
     });
   }

@@ -51,7 +51,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
 
   deleteTodo() {
     this.publish(new Todos.TodoDeleted({
-      todoId: this.currentData()._id
+      todoId: this.currentData().id
     }));
   },
 

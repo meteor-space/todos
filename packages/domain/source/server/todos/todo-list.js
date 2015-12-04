@@ -12,7 +12,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       'Todos.CreateTodoList': this._createTodoList,
       'Todos.CreateTodo': this._createTodo,
       'Todos.CompleteTodo': this._completeTodo,
-      'Todos.ReopenTodo': this._reopenTodo
+      'Todos.ReopenTodo': this._reopenTodo,
+      'Todos.DeleteTodo': this._deleteTodo
     };
   },
 
@@ -21,7 +22,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       'Todos.TodoListCreated': this._onTodoListCreated,
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoCompleted': this._onTodoCompleted,
-      'Todos.TodoReopened': this._onTodoReopened
+      'Todos.TodoReopened': this._onTodoReopened,
+      'Todos.TodoDeleted': this._onTodoDeleted
     };
   },
 
@@ -62,6 +64,12 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   },
 
+  _deleteTodo(command) {
+    // _getTodoById throws error if todo is not found
+    let todo = this._getTodoById(command.todoId);
+    this.record(new Todos.TodoDeleted(this._eventPropsFromCommand(command)));
+  },
+
   // ============= EVENT HANDLERS ============
 
   _onTodoListCreated(event) {
@@ -88,6 +96,11 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   _onTodoReopened(event) {
     let todo = this._getTodoById(event.todoId);
     todo.isCompleted = false;
+  },
+
+  _onTodoDeleted(event) {
+    let todo = this._getTodoById(event.todoId);
+    this.todos = _.without(this.todos, todo);
   },
 
   // ============= HELPERS ============

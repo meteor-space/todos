@@ -15,6 +15,10 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
 
   ReopenTodo: {
     todoId: Guid
+  },
+
+  DeleteTodo: {
+    todoId: Guid
   }
 
 });

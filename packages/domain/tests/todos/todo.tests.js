@@ -71,7 +71,7 @@ describe("Todos.Todo", function() {
     });
   });
 
-  describe("completing todo", function() {
+  describe("completing and reopening todo", function() {
 
     let todoListWithUncompleteTodo = function() {
 
@@ -175,6 +175,45 @@ describe("Todos.Todo", function() {
             thrower: 'Todos.TodoList',
             error: new Todos.TodoCannotBeReopened()
           })
+        ]);
+    });
+  });
+
+
+  describe("deleting todo", function() {
+
+    let todoListWithTodo = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId,
+        version: 1
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        version: 2,
+        id: this.todoId
+      }));
+
+      return [listCreated, todoCreated];
+    };
+
+    it("deletes todo", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when([
+          new Todos.DeleteTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: this.todoId
+          }))]
+        )
+        .expect([
+          new Todos.TodoDeleted(_.extend({}, {
+            todoId: this.todoId,
+            timestamp: Date,
+            sourceId: this.todoListId,
+            version: 3
+          }))
         ]);
     });
 
