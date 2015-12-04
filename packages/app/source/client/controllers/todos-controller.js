@@ -15,7 +15,8 @@ Space.Object.extend(Todos, 'TodosController', {
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoToggled': this._onTodoToggled,
       'Todos.TodoDeleted': this._onTodoDeleted,
-      'Todos.AllTodosToggled': this._onAllTodosToggled
+      'Todos.AllTodosToggled': this._onAllTodosToggled,
+      'Todos.CompletedTodosCleared': this._onCompletedTodosCleared
     }];
   },
 
@@ -59,6 +60,17 @@ Space.Object.extend(Todos, 'TodosController', {
     } else {
       for (let todo of this.todosStore.completedTodos()) {
         this.send(new Todos.ReopenTodo({
+          targetId: this.configuration.todoListId,
+          todoId: new Guid(todo.id)
+        }));
+      }
+    }
+  },
+
+  _onCompletedTodosCleared(event) {
+    if (this.todosStore.completedTodos().length > 0) {
+      for (let todo of this.todosStore.completedTodos()) {
+        this.send(new Todos.DeleteTodo({
           targetId: this.configuration.todoListId,
           todoId: new Guid(todo.id)
         }));

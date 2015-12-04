@@ -29,7 +29,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
   events() {
     return [{
       'click #clear-completed'() {
-        this.meteor.call('clearCompletedTodos');
+        this.publish(new Todos.CompletedTodosCleared());
       }
     }];
   },
