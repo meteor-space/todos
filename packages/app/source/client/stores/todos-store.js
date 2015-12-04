@@ -77,7 +77,7 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   completedTodos() {
     if (this.todoListDocument()) {
-      return this._getTodosByState(false);
+      return this._getTodosByState(true);
     } else {
       return [];
     }
