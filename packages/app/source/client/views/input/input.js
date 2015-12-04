@@ -4,9 +4,9 @@ Space.flux.BlazeComponent.extend(Todos, 'Input', {
     this.register('input');
   },
 
-  events: function() {
+  events() {
     return [{
-      'keyup #new-todo': function (event) {
+      'keyup #new-todo'(event) {
 
         // When it was the ENTER key
         if (event.keyCode === 13) {
@@ -22,6 +22,6 @@ Space.flux.BlazeComponent.extend(Todos, 'Input', {
         }
       }
     }];
-  }
+  },
 
 });
