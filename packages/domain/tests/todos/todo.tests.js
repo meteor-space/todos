@@ -34,9 +34,7 @@ describe("Todos.Todo", function() {
         )
         .expect([
           new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-            sourceId: this.todoListId,
-            timestamp: Date,
-            version: 1
+            sourceId: this.todoListId
           }))
         ]);
     });
@@ -46,8 +44,7 @@ describe("Todos.Todo", function() {
 
     let todoListCreated = function() {
       return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
     };
 
@@ -62,9 +59,7 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoCreated(_.extend({}, this.newTodoData, {
             id: Guid,
-            sourceId: this.todoListId,
-            timestamp: Date,
-            version: 2
+            sourceId: this.todoListId
           }))
           //TODO: Should I check if todo item in array in aggregate instance?
         ]);
@@ -76,13 +71,11 @@ describe("Todos.Todo", function() {
     let todoListWithUncompleteTodo = function() {
 
       let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
 
       let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
         sourceId: this.todoListId,
-        version: 2,
         id: this.todoId
       }));
 
@@ -102,8 +95,6 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoCompleted(_.extend({}, {
             sourceId: this.todoListId,
-            timestamp: Date,
-            version: 2,
             todoId: this.todoId
           }))
         ]);
@@ -112,14 +103,12 @@ describe("Todos.Todo", function() {
     let todoListWithCompletedTodo = function() {
 
       let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
 
       let todoCreated = new Todos.TodoCreated(_.extend({}, this.completedTodoData, {
         sourceId: this.todoListId,
-        version: 2,
-        id: this.todoId,
+        id: this.todoId
       }));
 
       return [listCreated, todoCreated];
@@ -154,8 +143,6 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoReopened(_.extend({}, {}, {
             sourceId: this.todoListId,
-            timestamp: Date,
-            version: 2,
             todoId: this.todoId
           }))
         ]);
@@ -185,13 +172,11 @@ describe("Todos.Todo", function() {
     let todoListWithTodo = function() {
 
       let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
 
       let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
         sourceId: this.todoListId,
-        version: 2,
         id: this.todoId
       }));
 
@@ -210,9 +195,7 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoDeleted(_.extend({}, {
             todoId: this.todoId,
-            timestamp: Date,
-            sourceId: this.todoListId,
-            version: 3
+            sourceId: this.todoListId
           }))
         ]);
     });
