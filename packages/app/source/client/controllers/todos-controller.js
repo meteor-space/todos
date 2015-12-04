@@ -20,7 +20,6 @@ Space.Object.extend(Todos, 'TodosController', {
     this.send(new Todos.CreateTodo({
       targetId: this.configuration.todoListId,
       title: event.title,
-      id: new Guid(),
       isCompleted: false
     }));
   },

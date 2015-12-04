@@ -12,7 +12,6 @@ describe("Todos.Todo", function() {
 
     this.newTodoData = {
       title: 'My Todo',
-      id: new Guid(),
       isCompleted: false
     };
 
@@ -36,7 +35,7 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoListCreated(_.extend({}, this.todoListData, {
             sourceId: this.todoListId,
-            timestamp: new Date(),
+            timestamp: Date,
             version: 1
           }))
         ]);
@@ -62,8 +61,9 @@ describe("Todos.Todo", function() {
         )
         .expect([
           new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+            id: Guid,
             sourceId: this.todoListId,
-            timestamp: new Date(),
+            timestamp: Date,
             version: 2
           }))
           //TODO: Should I check if todo item in array in aggregate instance?
@@ -102,7 +102,7 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoCompleted(_.extend({}, {
             sourceId: this.todoListId,
-            timestamp: new Date(),
+            timestamp: Date,
             version: 2,
             todoId: this.todoId
           }))
@@ -154,7 +154,7 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoReopened(_.extend({}, {}, {
             sourceId: this.todoListId,
-            timestamp: new Date(),
+            timestamp: Date,
             version: 2,
             todoId: this.todoId
           }))
