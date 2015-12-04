@@ -19,6 +19,11 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
 
   RemoveTodo: {
     todoId: Guid
+  },
+
+  ChangeTodoTitle: {
+    todoId: Guid,
+    newTitle: String
   }
 
 });

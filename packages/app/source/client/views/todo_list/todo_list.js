@@ -27,7 +27,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
 
   prepareTodoData() {
     todo = this.currentData();
-    todo.isEditing = this.store.editingTodoId() === todo._id;
+    todo.isEditing = this.store.editingTodoId() === todo.id;
     return todo;
   },
 
@@ -57,7 +57,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
 
   editTodo() {
     this.publish(new Todos.TodoEditingStarted({
-      todoId: this.currentData()._id
+      todoId: this.currentData().id
     }));
   },
 
@@ -65,7 +65,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
     let todo = Space.flux.getEventTarget(event);
     let newTitle = todo.getTitleValue();
     this.publish(new Todos.TodoTitleChanged({
-      todoId: todo.data._id,
+      todoId: todo.data.id,
       newTitle: newTitle
     }));
     this.stopEditing();
@@ -77,7 +77,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
 
   stopEditing() {
     this.publish(new Todos.TodoEditingEnded({
-      todoId: this.currentData()._id
+      todoId: this.currentData().id
     }));
   }
 })

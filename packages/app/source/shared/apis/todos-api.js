@@ -10,7 +10,8 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
       'Todos.CreateTodo': this._createTodo,
       'Todos.CompleteTodo': this._completeTodo,
       'Todos.ReopenTodo': this._reopenTodo,
-      'Todos.RemoveTodo': this._removeTodo
+      'Todos.RemoveTodo': this._removeTodo,
+      'Todos.ChangeTodoTitle': this._changeTodoTitle
     }];
   },
 
@@ -68,6 +69,18 @@ Space.messaging.Api.extend(Todos, 'TodosApi', {
     if (context.isSimulation) {
       let removeTodo = {$pull:{todos: {id: command.todoId.toString()}}};
       this.todos.update({'_id': command.targetId.toString()}, removeTodo);
+    } else {
+      this.send(command);
+    }
+  },
+
+  _changeTodoTitle(context, command) {
+    if (context.isSimulation) {
+      this.todos.update({_id: command.targetId.toString(), 'todos.id': command.todoId.toString()}, {
+        $set: {
+          'todos.$.title': command.newTitle
+        }
+      });
     } else {
       this.send(command);
     }

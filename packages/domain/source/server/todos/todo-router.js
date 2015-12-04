@@ -8,7 +8,8 @@ Space.eventSourcing.Router.extend(Todos, 'TodosRouter', {
     Todos.CreateTodo,
     Todos.CompleteTodo,
     Todos.ReopenTodo,
-    Todos.RemoveTodo
+    Todos.RemoveTodo,
+    Todos.ChangeTodoTitle
   ]
 
 });

@@ -13,7 +13,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       'Todos.CreateTodo': this._createTodo,
       'Todos.CompleteTodo': this._completeTodo,
       'Todos.ReopenTodo': this._reopenTodo,
-      'Todos.RemoveTodo': this._removeTodo
+      'Todos.RemoveTodo': this._removeTodo,
+      'Todos.ChangeTodoTitle': this._changeTodoTitle
     };
   },
 
@@ -23,7 +24,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoCompleted': this._onTodoCompleted,
       'Todos.TodoReopened': this._onTodoReopened,
-      'Todos.TodoRemoved': this._onTodoRemoved
+      'Todos.TodoRemoved': this._onTodoRemoved,
+      'Todos.TodoTitleChanged': this._onTodoTitleChanged
     };
   },
 
@@ -70,6 +72,10 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
     this.record(new Todos.TodoRemoved(this._eventPropsFromCommand(command)));
   },
 
+  _changeTodoTitle(command) {
+    this.record(new Todos.TodoTitleChanged(this._eventPropsFromCommand(command)));
+  },
+
   // ============= EVENT HANDLERS ============
 
   _onTodoListCreated(event) {
@@ -101,6 +107,11 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   _onTodoRemoved(event) {
     let todo = this._getTodoById(event.todoId);
     this.todos = _.without(this.todos, todo);
+  },
+
+  _onTodoTitleChanged(event) {
+    let todo = this._getTodoById(event.todoId);
+    todo.title = event.newTitle
   },
 
   // ============= HELPERS ============

@@ -28,7 +28,20 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
 
   AllTodosToggled: {},
 
-  CompletedTodosCleared: {}
+  CompletedTodosCleared: {},
+
+  TodoEditingStarted: {
+    todoId: String
+  },
+
+  TodoTitleChanged: {
+    todoId: String,
+    newTitle: String
+  },
+
+  TodoEditingEnded: {
+    todoId: String
+  }
 
 
 });

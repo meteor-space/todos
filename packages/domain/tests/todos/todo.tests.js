@@ -201,4 +201,42 @@ describe("Todos.Todo", function() {
 
   });
 
+
+  describe("renaming todo", function() {
+
+    let todoListWithTodo = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: this.todoId
+      }));
+
+      return [listCreated, todoCreated];
+    };
+
+    it("changes todo title", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when([
+          new Todos.ChangeTodoTitle(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: this.todoId,
+            newTitle: 'My new title'
+          }))]
+        )
+        .expect([
+          new Todos.TodoTitleChanged(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: this.todoListId,
+            newTitle: 'My new title'
+          }))
+        ]);
+    });
+
+  });
+
 });

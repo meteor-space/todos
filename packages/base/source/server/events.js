@@ -24,6 +24,11 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
 
   AllTodosCompleted: {},
 
-  AllTodosReopened: {}
+  AllTodosReopened: {},
+
+  TodoTitleChanged: {
+    todoId: Guid,
+    newTitle: String
+  }
 
 });

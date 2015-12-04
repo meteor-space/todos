@@ -20,7 +20,9 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   eventSubscriptions() {
     return [{
-      'Todos.RouteTriggered': this._changeActiveFilter
+      'Todos.RouteTriggered': this._changeActiveFilter,
+      'Todos.TodoEditingStarted': this._setEditingTodoId,
+      'Todos.TodoEditingEnded': this._unsetEditingTodoId
     }];
   },
 
@@ -85,6 +87,14 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   _changeActiveFilter(event) {
     this._setReactiveVar('activeFilter', event.params.filter);
+  },
+
+  _setEditingTodoId(event) {
+    this._setSessionVar('editingTodoId', event.todoId);
+  },
+
+  _unsetEditingTodoId() {
+    this._setSessionVar('editingTodoId', null);
   },
 
   // ============= HELPERS ============
