@@ -6,8 +6,7 @@ Space.Object.extend(Todos, 'TodosController', {
   ],
 
   dependencies: {
-    configuration: 'configuration',
-    todosStore: 'Todos.TodosStore',
+    configuration: 'configuration'
   },
 
   eventSubscriptions() {
