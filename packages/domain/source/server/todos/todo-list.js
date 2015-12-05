@@ -38,7 +38,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   _createTodo(command) {
     let eventProps = this._eventPropsFromCommand(command);
     this.record(new Todos.TodoCreated(_.extend(eventProps, {
-      id: new Guid()
+      todoId: new Guid()
     })));
   },
 
@@ -84,9 +84,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _onTodoCreated(event) {
-
     let todo = new Todos.TodoItem({
-      id: event.id,
+      id: event.todoId,
       title: event.title,
       isCompleted: event.isCompleted
     });
@@ -105,7 +104,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _onTodoRemoved(event) {
-    let todo = this._getTodoById(event.todoId);
+    let todoId = event.todoId;
+    let todo = this._getTodoById(todoId);
     this.todos = _.without(this.todos, todo);
   },
 

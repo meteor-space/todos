@@ -26,7 +26,7 @@ Space.eventSourcing.Projection.extend(Todos, 'TodosProjection', {
   _onTodoCreated(event) {
     this.todos.update(event.sourceId.toString(), {
       $push: { todos: {
-        id: event.id.toString(),
+        id: event.todoId.toString(),
         title: event.title,
         isCompleted: event.isCompleted
       }}
