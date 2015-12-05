@@ -40,6 +40,10 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
     }];
   },
 
+  hasAnyTodos() {
+    return this.store.filteredTodos().length > 0;
+  },
+
   _mapAvailableFilters() {
     return _.map(this.store.FILTERS, function(key) {
       return {
