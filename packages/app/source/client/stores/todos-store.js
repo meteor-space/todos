@@ -85,6 +85,10 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
     }
   },
 
+  allTodos() {
+    return this._getAllTodos();
+  },
+
   _changeActiveFilter(event) {
     this._setReactiveVar('activeFilter', event.params.filter);
   },
@@ -106,6 +110,16 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
         if (todo.isCompleted === isCompleted) {
           foundTodos.push(todo);
         }
+      }
+    }
+    return foundTodos;
+  },
+
+  _getAllTodos() {
+    let foundTodos = [];
+    if (this.todoListDocument()) {
+      for (let todo of this.todoListDocument().todos) {
+        foundTodos.push(todo);
       }
     }
     return foundTodos;

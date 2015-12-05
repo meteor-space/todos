@@ -37,18 +37,33 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
   },
 
   toggleAllTodos() {
-    if (this.store.activeTodos().length > 0) {
-      for (let todo of this.store.activeTodos()) {
-        this.publish(new Todos.TodoCompleted({
-          todoId: todo.id
-        }));
-      }
-    } else {
-      for (let todo of this.store.completedTodos()) {
-        this.publish(new Todos.TodoReopened({
-          todoId: todo.id
-        }));
-      }
+    switch (this.store.activeFilter()) {
+      case this.store.FILTERS.ALL:
+        if (this.store.activeTodos().length > 0) {
+          return this._completeOpenTodos();
+        } else {
+          return this._reopenCompleteTodos();
+        }
+      case this.store.FILTERS.ACTIVE:
+        return this._completeOpenTodos();
+      case this.store.FILTERS.COMPLETED:
+        return this._reopenCompleteTodos();
+    }
+  },
+
+  _completeOpenTodos() {
+    for (let todo of this.store.activeTodos()) {
+      this.publish(new Todos.TodoCompleted({
+        todoId: todo.id
+      }));
+    }
+  },
+
+  _reopenCompleteTodos() {
+    for (let todo of this.store.completedTodos()) {
+      this.publish(new Todos.TodoReopened({
+        todoId: todo.id
+      }));
     }
   }
 

@@ -41,7 +41,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
   },
 
   hasAnyTodos() {
-    return this.store.filteredTodos().length > 0;
+    return this.store.allTodos().length > 0;
   },
 
   _mapAvailableFilters() {
