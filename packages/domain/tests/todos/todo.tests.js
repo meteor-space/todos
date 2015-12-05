@@ -199,6 +199,25 @@ describe("Todos.Todo", function() {
         ]);
     });
 
+    let unknownTodoId = new Guid();
+
+    it("does not allow removing a todo that does not exist", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when([
+          new Todos.ReopenTodo(_.extend({}, {}, {
+            targetId: this.todoListId,
+            todoId: unknownTodoId
+          }))]
+        )
+        .expect([
+          new Space.domain.Exception({
+            thrower: 'Todos.TodoList',
+            error: new Todos.TodoNotFoundError(unknownTodoId)
+          })
+        ]);
+    });
+
   });
 
 
