@@ -1,60 +1,89 @@
+Space.flux.BlazeComponent.extend(Todos, 'Todo', {
 
-var ENTER_KEY = 13;
-var ESCAPE_KEY = 27;
+    dependencies: {
+      store: 'Todos.TodosStore',
+      meteor: 'Meteor'
+    },
 
-Template.todo.onCreated(function() {
-  this.getTitleValue = _.bind(function() {
-    return this.$('.edit').val();
-  }, this);
-});
+    completedState() {
+      return this.isCompleted ? 'completed' : '';
+    },
 
-Template.todo.helpers({
-
-  completedState() {
-    return this.isCompleted ? 'completed' : '';
-  },
-
-  editingState() {
-    if(this.isEditing) {
-      var template = Template.instance();
-      if(template.view.isRendered) {
-        template.$('.edit').focus().select();
+    editingState() {
+      let template = Template.instance();
+      this.isEditing = this.store.editingTodoId() === template.data.id;
+      if (this.isEditing) {
+        if (template.view.isRendered) {
+          template.$('.edit').focus().select();
+        }
+        return 'editing';
       }
-      return 'editing';
+      else {
+        return '';
+      }
+    },
+
+    events() {
+      return [{
+        'click .toggle': this._toggleTodo,
+        'click .destroy': this._removeTodo,
+        'dblclick .todo': this._editTodo,
+        'blur .edit': this._stopEditing,
+        'keyup .edit'(event) {
+          switch (event.keyCode) {
+            case 27: // escape key
+              this._stopEditing(event);
+              break;
+            case 13: // enter key
+              this._submitNewTitle(event);
+              break;
+          }
+        }
+      }];
+    },
+
+    _toggleTodo() {
+      if (this.currentData().isCompleted) {
+        this.publish(new Todos.TodoReopened({
+          todoId: this.currentData().id
+        }));
+      } else {
+        this.publish(new Todos.TodoCompleted({
+          todoId: this.currentData().id
+        }));
+      }
+    },
+
+    _removeTodo() {
+      this.publish(new Todos.TodoRemoved({
+        todoId: this.currentData().id
+      }));
+    },
+
+    _editTodo() {
+      this.publish(new Todos.TodoEditingStarted({
+        todoId: this.currentData().id
+      }));
+    },
+
+    _stopEditing() {
+      this.publish(new Todos.TodoEditingEnded({
+        todoId: this.currentData().id
+      }));
+    },
+
+    _submitNewTitle(event) {
+      let template = Template.instance();
+      let id = template.data.id;
+      let newTitle = event.currentTarget.value;
+      this.publish(new Todos.TodoTitleChanged({
+        todoId: id,
+        newTitle: newTitle
+      }));
+      this._stopEditing();
     }
-    else {
-      return '';
-    }
-  }
-});
 
-Template.todo.events({
+  })
+  // Register blaze-component for template
+  .register('todo');
 
-  'click .toggle'(event, template) {
-    template.$(template.firstNode).trigger('toggled');
-  },
-
-  'click .destroy'(event, template) {
-    template.$(template.firstNode).trigger('destroyed');
-  },
-
-  'dblclick .todo'(event, template) {
-    template.$(template.firstNode).trigger('doubleClicked');
-  },
-
-  'blur .edit'(event, template) {
-    template.$(template.firstNode).trigger('editingCanceled');
-  },
-
-  'keyup .edit'(event, template) {
-
-    switch(event.keyCode) {
-      case ESCAPE_KEY:
-        template.$(template.firstNode).trigger('editingCanceled');
-        break;
-      case ENTER_KEY:
-        template.$(template.firstNode).trigger('editingCompleted');
-        break;
-    }
-  }
-});

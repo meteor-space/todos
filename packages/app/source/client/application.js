@@ -20,6 +20,7 @@ Space.Application.extend(Todos, 'App', {
 
   components: [
     'Todos.Input',
+    'Todos.Todo',
     'Todos.TodoList',
     'Todos.Footer',
   ],
