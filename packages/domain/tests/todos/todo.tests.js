@@ -166,7 +166,16 @@ describe("Todos.Todo", function() {
   });
 
 
-  describe("removing todo", function() {
+  describe("removing many todos", function() {
+
+    let todo1Id = new Guid();
+    let todo2Id = new Guid();
+    let todo3Id = new Guid();
+    let todo4Id = new Guid();
+    let todo5Id = new Guid();
+    let todo6Id = new Guid();
+    let todo7Id = new Guid();
+    let todo8Id = new Guid();
 
     let todoListWithTodo = function() {
 
@@ -174,27 +183,119 @@ describe("Todos.Todo", function() {
         sourceId: this.todoListId
       }));
 
-      let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated1 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
         sourceId: this.todoListId,
-        id: this.todoId
+        id: todo1Id
       }));
 
-      return [listCreated, todoCreated];
+      let todoCreated2 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo2Id
+      }));
+
+      let todoCreated3 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo3Id
+      }));
+
+      let todoCreated4 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo4Id
+      }));
+
+      let todoCreated5 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo5Id
+      }));
+
+      let todoCreated6 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo6Id
+      }));
+
+      let todoCreated7 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo7Id
+      }));
+
+      let todoCreated8 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+        sourceId: this.todoListId,
+        id: todo8Id
+      }));
+
+      return [listCreated, todoCreated1, todoCreated2, todoCreated3, todoCreated4, todoCreated5, todoCreated6, todoCreated7, todoCreated8];
     };
 
-    it("removes todo", function() {
+    it("removes 8 todos", function() {
       Todos.domain.test(Todos.TodoList)
         .given(todoListWithTodo.call(this))
         .when([
           new Todos.RemoveTodo(_.extend({}, {
             targetId: this.todoListId,
-            todoId: this.todoId
-          }))]
+            todoId: todo1Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo2Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo3Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo4Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo5Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo6Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo7Id
+          })),
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: todo8Id
+          }))
+        ]
         )
         .expect([
           new Todos.TodoRemoved(_.extend({}, {
             todoId: this.todoId,
-            sourceId: this.todoListId
+            sourceId: todo1Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo2Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo3Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo4Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo5Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo6Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo7Id
+          })),
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: todo8Id
           }))
         ]);
     });
