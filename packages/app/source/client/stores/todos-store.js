@@ -90,7 +90,12 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
   },
 
   _changeActiveFilter(event) {
-    this._setReactiveVar('activeFilter', event.params.filter);
+    if (event.params.filter) {
+      this._setReactiveVar('activeFilter', event.params.filter);
+    } else {
+      this._setReactiveVar('activeFilter', this.FILTERS.ALL);
+    }
+
   },
 
   _setEditingTodoId(event) {
