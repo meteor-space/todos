@@ -266,36 +266,36 @@ describe("Todos.Todo", function() {
         )
         .expect([
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo1Id
+            todoId: todo1Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo2Id
+            todoId: todo2Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo3Id
+            todoId: todo3Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo4Id
+            todoId: todo4Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo5Id
+            todoId: todo5Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo6Id
+            todoId: todo6Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo7Id
+            todoId: todo7Id,
+            sourceId: this.todoListId
           })),
           new Todos.TodoRemoved(_.extend({}, {
-            todoId: this.todoId,
-            sourceId: todo8Id
+            todoId: todo8Id,
+            sourceId: this.todoListId
           }))
         ]);
     });
