@@ -9,7 +9,7 @@
   },
   "space:event-sourcing": {
     "git":"https://github.com/meteor-space/event-sourcing.git",
-    "branch": "fix/existence-check-on-reset"
+    "commit": "acb900cee7023468c5a3100081bad7949a5fe60d"
   },
   "space:domain": {
     "git":"https://github.com/meteor-space/domain.git",
