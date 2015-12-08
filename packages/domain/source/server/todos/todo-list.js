@@ -38,7 +38,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   _createTodo(command) {
     let eventProps = this._eventPropsFromCommand(command);
     this.record(new Todos.TodoCreated(_.extend(eventProps, {
-      todoId: new Guid()
+      todoId: new Guid(),
+      isCompleted: false
     })));
   },
 

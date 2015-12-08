@@ -11,7 +11,12 @@ describe("Todos.Todo", function() {
     };
 
     this.newTodoData = {
+      title: 'My Todo'
+    };
+
+    this.openTodoData = {
       title: 'My Todo',
+      todoId: new Guid(),
       isCompleted: false
     };
 
@@ -59,7 +64,8 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoCreated(_.extend({}, this.newTodoData, {
             sourceId: this.todoListId,
-            todoId: Guid
+            todoId: Guid,
+            isCompleted: Boolean
           }))
         ]);
     });
@@ -73,7 +79,7 @@ describe("Todos.Todo", function() {
         sourceId: this.todoListId
       }));
 
-      let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
         todoId: this.todoId
       }));
@@ -183,42 +189,42 @@ describe("Todos.Todo", function() {
         sourceId: this.todoListId
       }));
 
-      let todoCreated1 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated1 = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
         todoId: todo1Id
       }));
 
-      let todoCreated2 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated2 = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
         todoId: todo2Id
       }));
 
-      let todoCreated3 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated3 = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
         todoId: todo3Id
       }));
 
-      let todoCreated4 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated4 = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
         todoId: todo4Id
       }));
 
-      let todoCreated5 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated5 = new Todos.TodoCreated(_.extend({}, this.completedTodoData, {
         sourceId: this.todoListId,
         todoId: todo5Id
       }));
 
-      let todoCreated6 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated6 = new Todos.TodoCreated(_.extend({}, this.completedTodoData, {
         sourceId: this.todoListId,
         todoId: todo6Id
       }));
 
-      let todoCreated7 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated7 = new Todos.TodoCreated(_.extend({}, this.completedTodoData, {
         sourceId: this.todoListId,
         todoId: todo7Id
       }));
 
-      let todoCreated8 = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated8 = new Todos.TodoCreated(_.extend({}, this.completedTodoData, {
         sourceId: this.todoListId,
         todoId: todo8Id
       }));
@@ -330,7 +336,7 @@ describe("Todos.Todo", function() {
         sourceId: this.todoListId
       }));
 
-      let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
         todoId: this.todoId
       }));
