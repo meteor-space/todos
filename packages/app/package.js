@@ -48,7 +48,7 @@ Package.onUse(function (api) {
 
   // SHARED configuration
   api.addFiles([
-      'source/shared/collections/todos-collection.js',
+      'source/shared/todos-collection.js',
       'source/shared/apis/todos-api.js'
     ],
     ['client', 'server']
