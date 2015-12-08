@@ -42,7 +42,7 @@ Package.onUse(function (api) {
     // PROJECTIONS
     'source/server/projections/todos-projection.js',
     // PUBLICATIONS
-    'source/server/publications/publications.js',
+    'source/server/publications.js',
     'source/server/application.js',
   ], 'server');
 
