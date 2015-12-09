@@ -56,8 +56,6 @@ Package.onUse(function (api) {
 
   // CLIENT Configuration
   api.addFiles([
-    // STYLES
-    'source/client/client.css',
     // LAYOUTS
     'source/client/views/layout.html',
     // PAGES
