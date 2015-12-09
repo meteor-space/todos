@@ -16,7 +16,7 @@ Todos.App = Space.Application.define('Todos.App', {
   ],
 
   onInitialize() {
-    this.injector.map('Todos.Todos').to(Todos.Todos);
+    this.injector.map('Todos.TodoLists').to(Todos.TodoLists);
     this.configuration.todoListId = new Guid('18c18a9a-25da-42ab-84dd-61f3bfff6999');
   },
 
@@ -25,11 +25,11 @@ Todos.App = Space.Application.define('Todos.App', {
   },
 
   onReset() {
-    this.injector.get('Todos.Todos').remove({});
+    this.injector.get('Todos.TodoLists').remove({});
   },
 
   _ensureTodoList() {
-    if(this.injector.get('Todos.Todos').find({_id: this.configuration.todoListId.toString()}).count() === 0) {
+    if(this.injector.get('Todos.TodoLists').find({_id: this.configuration.todoListId.toString()}).count() === 0) {
       this.send(new Todos.CreateTodoList({
         targetId: this.configuration.todoListId,
         name: this.configuration.todoListName

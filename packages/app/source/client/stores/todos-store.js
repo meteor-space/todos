@@ -2,7 +2,7 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   // The store needs a reference to the todos collection
   dependencies: {
-    todos: 'Todos.Todos',
+    todos: 'Todos.TodoLists',
     configuration: 'configuration',
   },
 
@@ -20,7 +20,9 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   eventSubscriptions() {
     return [{
-      'Todos.RouteTriggered': this._changeActiveFilter
+      'Todos.RouteTriggered': this._changeActiveFilter,
+      'Todos.TodoEditingStarted': this._setEditingTodoId,
+      'Todos.TodoEditingEnded': this._unsetEditingTodoId
     }];
   },
 
@@ -77,14 +79,31 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
 
   completedTodos() {
     if (this.todoListDocument()) {
-      return this._getTodosByState(false);
+      return this._getTodosByState(true);
     } else {
       return [];
     }
   },
 
+  allTodos() {
+    return this._getAllTodos();
+  },
+
   _changeActiveFilter(event) {
-    this._setReactiveVar('activeFilter', event.params.filter);
+    if (event.params.filter) {
+      this._setReactiveVar('activeFilter', event.params.filter);
+    } else {
+      this._setReactiveVar('activeFilter', this.FILTERS.ALL);
+    }
+
+  },
+
+  _setEditingTodoId(event) {
+    this._setSessionVar('editingTodoId', event.todoId);
+  },
+
+  _unsetEditingTodoId() {
+    this._setSessionVar('editingTodoId', null);
   },
 
   // ============= HELPERS ============
@@ -96,6 +115,16 @@ Space.flux.Store.extend(Todos, 'TodosStore', {
         if (todo.isCompleted === isCompleted) {
           foundTodos.push(todo);
         }
+      }
+    }
+    return foundTodos;
+  },
+
+  _getAllTodos() {
+    let foundTodos = [];
+    if (this.todoListDocument()) {
+      for (let todo of this.todoListDocument().todos) {
+        foundTodos.push(todo);
       }
     }
     return foundTodos;

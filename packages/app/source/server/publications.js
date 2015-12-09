@@ -1,7 +1,7 @@
 Space.messaging.Publication.extend(Todos, 'TodosPublication', {
 
   dependencies: {
-    todosCollection: 'Todos.Todos'
+    todosCollection: 'Todos.TodoLists'
   },
 
   publications() {

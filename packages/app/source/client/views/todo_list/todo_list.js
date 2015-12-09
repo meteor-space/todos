@@ -26,60 +26,47 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
   },
 
   prepareTodoData() {
-    todo = this.currentData();
-    todo.isEditing = this.store.editingTodoId() === todo._id;
+    let todo = this.currentData();
     return todo;
   },
 
   events() {
     return [{
-      'toggled .todo': this.toggleTodo,
-      'destroyed .todo': this.deleteTodo,
-      'doubleClicked .todo': this.editTodo,
-      'editingCanceled .todo': this.stopEditing,
-      'editingCompleted .todo': this.submitNewTitle,
       'click #toggle-all': this.toggleAllTodos
     }];
   },
 
-  toggleTodo() {
-    this.publish(new Todos.TodoToggled({
-      id: this.currentData().id,
-      isCompleted: this.currentData().isCompleted
-    }));
-  },
-
-  deleteTodo() {
-    this.publish(new Todos.TodoDeleted({
-      todoId: this.currentData()._id
-    }));
-  },
-
-  editTodo() {
-    this.publish(new Todos.TodoEditingStarted({
-      todoId: this.currentData()._id
-    }));
-  },
-
-  submitNewTitle(event) {
-    let todo = Space.flux.getEventTarget(event);
-    let newTitle = todo.getTitleValue();
-    this.publish(new Todos.TodoTitleChanged({
-      todoId: todo.data._id,
-      newTitle: newTitle
-    }));
-    this.stopEditing();
-  },
-
   toggleAllTodos() {
-    this.meteor.call('toggleAllTodos');
+    switch (this.store.activeFilter()) {
+      case this.store.FILTERS.ALL:
+        if (this.store.activeTodos().length > 0) {
+          return this._completeOpenTodos();
+        } else {
+          return this._reopenCompleteTodos();
+        }
+      case this.store.FILTERS.ACTIVE:
+        return this._completeOpenTodos();
+      case this.store.FILTERS.COMPLETED:
+        return this._reopenCompleteTodos();
+    }
   },
 
-  stopEditing() {
-    this.publish(new Todos.TodoEditingEnded({
-      todoId: this.currentData()._id
-    }));
+  _completeOpenTodos() {
+    for (let todo of this.store.activeTodos()) {
+      this.publish(new Todos.TodoCompleted({
+        todoId: todo.id
+      }));
+    }
+  },
+
+  _reopenCompleteTodos() {
+    for (let todo of this.store.completedTodos()) {
+      this.publish(new Todos.TodoReopened({
+        todoId: todo.id
+      }));
+    }
   }
+
 })
 // Register blaze-component for template
 .register('todo_list');

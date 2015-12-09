@@ -7,18 +7,22 @@ describe("Todos.Todo", function() {
     this.todoId = new Guid();
 
     this.todoListData = {
-      name: 'MyTodos',
+      name: 'MyTodos'
     };
 
     this.newTodoData = {
+      title: 'My Todo'
+    };
+
+    this.openTodoData = {
       title: 'My Todo',
-      id: new Guid(),
+      todoId: new Guid(),
       isCompleted: false
     };
 
     this.completedTodoData = {
       title: 'My Todo',
-      id: new Guid(),
+      todoId: new Guid(),
       isCompleted: true
     };
   });
@@ -35,9 +39,7 @@ describe("Todos.Todo", function() {
         )
         .expect([
           new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-            sourceId: this.todoListId,
-            timestamp: new Date(),
-            version: 1
+            sourceId: this.todoListId
           }))
         ]);
     });
@@ -47,8 +49,7 @@ describe("Todos.Todo", function() {
 
     let todoListCreated = function() {
       return new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
     };
 
@@ -63,27 +64,24 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoCreated(_.extend({}, this.newTodoData, {
             sourceId: this.todoListId,
-            timestamp: new Date(),
-            version: 2
+            todoId: Guid,
+            isCompleted: Boolean
           }))
-          //TODO: Should I check if todo item in array in aggregate instance?
         ]);
     });
   });
 
-  describe("completing todo", function() {
+  describe("completing and reopening todo", function() {
 
     let todoListWithUncompleteTodo = function() {
 
       let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
 
-      let todoCreated = new Todos.TodoCreated(_.extend({}, this.newTodoData, {
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
         sourceId: this.todoListId,
-        version: 2,
-        id: this.todoId
+        todoId: this.todoId
       }));
 
       return [listCreated, todoCreated];
@@ -102,8 +100,6 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoCompleted(_.extend({}, {
             sourceId: this.todoListId,
-            timestamp: new Date(),
-            version: 2,
             todoId: this.todoId
           }))
         ]);
@@ -112,14 +108,12 @@ describe("Todos.Todo", function() {
     let todoListWithCompletedTodo = function() {
 
       let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
-        sourceId: this.todoListId,
-        version: 1
+        sourceId: this.todoListId
       }));
 
       let todoCreated = new Todos.TodoCreated(_.extend({}, this.completedTodoData, {
         sourceId: this.todoListId,
-        version: 2,
-        id: this.todoId,
+        todoId: this.todoId
       }));
 
       return [listCreated, todoCreated];
@@ -154,8 +148,6 @@ describe("Todos.Todo", function() {
         .expect([
           new Todos.TodoReopened(_.extend({}, {}, {
             sourceId: this.todoListId,
-            timestamp: new Date(),
-            version: 2,
             todoId: this.todoId
           }))
         ]);
@@ -175,6 +167,98 @@ describe("Todos.Todo", function() {
             thrower: 'Todos.TodoList',
             error: new Todos.TodoCannotBeReopened()
           })
+        ]);
+    });
+  });
+
+
+  describe("removing todo", function() {
+
+    let todoListWithTodo = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
+        sourceId: this.todoListId,
+        todoId: this.todoId
+      }));
+
+      return [listCreated, todoCreated];
+    };
+
+    it("removes todo", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when([
+          new Todos.RemoveTodo(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: this.todoId
+          }))]
+        )
+        .expect([
+          new Todos.TodoRemoved(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: this.todoListId
+          }))
+        ]);
+    });
+
+    let unknownTodoId = new Guid();
+
+    it("does not allow removing a todo that does not exist", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when([
+          new Todos.ReopenTodo(_.extend({}, {}, {
+            targetId: this.todoListId,
+            todoId: unknownTodoId
+          }))]
+        )
+        .expect([
+          new Space.domain.Exception({
+            thrower: 'Todos.TodoList',
+            error: new Todos.TodoNotFoundError(unknownTodoId)
+          })
+        ]);
+    });
+
+  });
+
+
+  describe("renaming todo", function() {
+
+    let todoListWithTodo = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
+        sourceId: this.todoListId,
+        todoId: this.todoId
+      }));
+
+      return [listCreated, todoCreated];
+    };
+
+    it("changes todo title", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when([
+          new Todos.ChangeTodoTitle(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: this.todoId,
+            newTitle: 'My new title'
+          }))]
+        )
+        .expect([
+          new Todos.TodoTitleChanged(_.extend({}, {
+            todoId: this.todoId,
+            sourceId: this.todoListId,
+            newTitle: 'My new title'
+          }))
         ]);
     });
 

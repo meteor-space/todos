@@ -42,13 +42,13 @@ Package.onUse(function (api) {
     // PROJECTIONS
     'source/server/projections/todos-projection.js',
     // PUBLICATIONS
-    'source/server/publications/publications.js',
+    'source/server/publications.js',
     'source/server/application.js',
   ], 'server');
 
   // SHARED configuration
   api.addFiles([
-      'source/shared/collections/todos-collection.js',
+      'source/shared/todos-collection.js',
       'source/shared/apis/todos-api.js'
     ],
     ['client', 'server']

@@ -12,7 +12,9 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       'Todos.CreateTodoList': this._createTodoList,
       'Todos.CreateTodo': this._createTodo,
       'Todos.CompleteTodo': this._completeTodo,
-      'Todos.ReopenTodo': this._reopenTodo
+      'Todos.ReopenTodo': this._reopenTodo,
+      'Todos.RemoveTodo': this._removeTodo,
+      'Todos.ChangeTodoTitle': this._changeTodoTitle
     };
   },
 
@@ -21,7 +23,9 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       'Todos.TodoListCreated': this._onTodoListCreated,
       'Todos.TodoCreated': this._onTodoCreated,
       'Todos.TodoCompleted': this._onTodoCompleted,
-      'Todos.TodoReopened': this._onTodoReopened
+      'Todos.TodoReopened': this._onTodoReopened,
+      'Todos.TodoRemoved': this._onTodoRemoved,
+      'Todos.TodoTitleChanged': this._onTodoTitleChanged
     };
   },
 
@@ -32,7 +36,11 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _createTodo(command) {
-    this.record(new Todos.TodoCreated(this._eventPropsFromCommand(command)));
+    let eventProps = this._eventPropsFromCommand(command);
+    this.record(new Todos.TodoCreated(_.extend(eventProps, {
+      todoId: new Guid(),
+      isCompleted: false
+    })));
   },
 
   _completeTodo(command) {
@@ -59,6 +67,16 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   },
 
+  _removeTodo(command) {
+    // _getTodoById throws error if todo is not found
+    let todo = this._getTodoById(command.todoId);
+    this.record(new Todos.TodoRemoved(this._eventPropsFromCommand(command)));
+  },
+
+  _changeTodoTitle(command) {
+    this.record(new Todos.TodoTitleChanged(this._eventPropsFromCommand(command)));
+  },
+
   // ============= EVENT HANDLERS ============
 
   _onTodoListCreated(event) {
@@ -67,9 +85,8 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _onTodoCreated(event) {
-
     let todo = new Todos.TodoItem({
-      id: event.id,
+      id: event.todoId,
       title: event.title,
       isCompleted: event.isCompleted
     });
@@ -85,6 +102,17 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   _onTodoReopened(event) {
     let todo = this._getTodoById(event.todoId);
     todo.isCompleted = false;
+  },
+
+  _onTodoRemoved(event) {
+    let todoId = event.todoId;
+    let todo = this._getTodoById(todoId);
+    this.todos = _.without(this.todos, todo);
+  },
+
+  _onTodoTitleChanged(event) {
+    let todo = this._getTodoById(event.todoId);
+    todo.title = event.newTitle;
   },
 
   // ============= HELPERS ============

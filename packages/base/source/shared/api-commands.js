@@ -5,9 +5,7 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
   },
 
   CreateTodo: {
-    id: Guid,
-    title: String,
-    isCompleted: Boolean
+    title: String
   },
 
   CompleteTodo: {
@@ -16,6 +14,15 @@ Space.messaging.define(Space.messaging.Command, 'Todos', {
 
   ReopenTodo: {
     todoId: Guid
+  },
+
+  RemoveTodo: {
+    todoId: Guid
+  },
+
+  ChangeTodoTitle: {
+    todoId: Guid,
+    newTitle: String
   }
 
 });

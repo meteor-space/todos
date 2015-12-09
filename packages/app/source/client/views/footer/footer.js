@@ -29,9 +29,19 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
   events() {
     return [{
       'click #clear-completed'() {
-        this.meteor.call('clearCompletedTodos');
+        if (this.store.completedTodos().length > 0) {
+          for (let todo of this.store.completedTodos()) {
+            this.publish(new Todos.TodoRemoved({
+              todoId: todo.id
+            }));
+          }
+        }
       }
     }];
+  },
+
+  hasAnyTodos() {
+    return this.store.allTodos().length > 0;
   },
 
   _mapAvailableFilters() {
