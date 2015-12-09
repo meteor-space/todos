@@ -112,7 +112,7 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
 
   _onTodoTitleChanged(event) {
     let todo = this._getTodoById(event.todoId);
-    todo.title = event.newTitle
+    todo.title = event.newTitle;
   },
 
   // ============= HELPERS ============

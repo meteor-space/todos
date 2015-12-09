@@ -7,7 +7,7 @@ describe("Todos.Todo", function() {
     this.todoId = new Guid();
 
     this.todoListData = {
-      name: 'MyTodos',
+      name: 'MyTodos'
     };
 
     this.newTodoData = {
