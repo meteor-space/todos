@@ -2,11 +2,11 @@
 
 
   {{#if hasAnyTodos}}
-    <input id="toggle-all" type="checkbox" checked={{isToggleChecked}}>
+    <input class="toggle-all" type="checkbox" checked={{isToggleChecked}}>
     <label for="toggle-all">Mark all as complete</label>
   {{/if}}
 
-  <ul id="todo-list">
+  <ul class="todo-list">
     {{#each todos}}
       {{> todo prepareTodoData}}
     {{/each}}

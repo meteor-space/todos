@@ -32,7 +32,7 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
 
   events() {
     return [{
-      'click #toggle-all': this.toggleAllTodos
+      'click .toggle-all': this.toggleAllTodos
     }];
   },
 

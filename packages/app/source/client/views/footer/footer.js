@@ -28,7 +28,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
 
   events() {
     return [{
-      'click #clear-completed'() {
+      'click .clear-completed'() {
         if (this.store.completedTodos().length > 0) {
           for (let todo of this.store.completedTodos()) {
             this.publish(new Todos.TodoRemoved({
@@ -45,13 +45,16 @@ Space.flux.BlazeComponent.extend(Todos, 'Footer', {
   },
 
   _mapAvailableFilters() {
+    let activeFilter = this.store.activeFilter();
     return _.map(this.store.FILTERS, function(key) {
       return {
         name: key[0].toUpperCase() + key.slice(1),
-        path: key
+        path: key,
+        selected: activeFilter === key ? 'selected' : ''
       };
     });
   }
+
 })
 
 .register('footer'); // BlazeComponent API to register with template
