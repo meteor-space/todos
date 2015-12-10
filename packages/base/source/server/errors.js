@@ -11,3 +11,9 @@ Space.Error.extend(Todos, 'TodoNotFoundError', {
     Space.Error.call(this, `No todo with id ${todoId} found.`);
   }
 });
+
+Space.Error.extend(Todos, 'TodoAlreadyExistError', {
+  Constructor(todoTitle) {
+    Space.Error.call(this, `Todo with title '${todoTitle}' already exists.`);
+  }
+});

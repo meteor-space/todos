@@ -25,6 +25,12 @@ describe("Todos.Todo", function() {
       todoId: new Guid(),
       isCompleted: true
     };
+
+    this.usedTitleTodoData = {
+      title: 'Used title',
+      todoId: new Guid(),
+      isCompleted: true
+    };
   });
 
   describe("creating a new todo list", function() {
@@ -69,6 +75,38 @@ describe("Todos.Todo", function() {
           }))
         ]);
     });
+
+    let todoListWithTodo = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId
+      }));
+
+      let todoWithUsedTitleCreated = new Todos.TodoCreated(_.extend({}, this.usedTitleTodoData, {
+        sourceId: this.todoListId,
+        todoId: new Guid()
+      }));
+
+      return [listCreated, todoWithUsedTitleCreated];
+    };
+
+    it("does not allow creating todo item if todo item with the same title already exists", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTodo.call(this))
+        .when(
+          new Todos.CreateTodo(_.extend({}, {
+            targetId: this.todoListId,
+            title: 'Used title'
+          }))
+        )
+        .expect([
+          new Space.domain.Exception({
+            thrower: 'Todos.TodoList',
+            error: new Todos.TodoAlreadyExistError('Used title')
+          })
+        ]);
+    });
+
   });
 
   describe("completing and reopening todo", function() {
@@ -259,6 +297,43 @@ describe("Todos.Todo", function() {
             sourceId: this.todoListId,
             newTitle: 'My new title'
           }))
+        ]);
+    });
+
+    let todoListWithTwoTodos = function() {
+
+      let listCreated = new Todos.TodoListCreated(_.extend({}, this.todoListData, {
+        sourceId: this.todoListId
+      }));
+
+      let todoCreated = new Todos.TodoCreated(_.extend({}, this.openTodoData, {
+        sourceId: this.todoListId,
+        todoId: this.todoId
+      }));
+
+      let todoWithUsedTitleCreated = new Todos.TodoCreated(_.extend({}, this.usedTitleTodoData, {
+        sourceId: this.todoListId,
+        todoId: new Guid()
+      }));
+
+      return [listCreated, todoCreated, todoWithUsedTitleCreated];
+    };
+
+    it("does not allow changing todo items title if todo item with that title already exists", function() {
+      Todos.domain.test(Todos.TodoList)
+        .given(todoListWithTwoTodos.call(this))
+        .when([
+          new Todos.ChangeTodoTitle(_.extend({}, {
+            targetId: this.todoListId,
+            todoId: this.todoId,
+            newTitle: 'Used title'
+          }))]
+        )
+        .expect([
+          new Space.domain.Exception({
+            thrower: 'Todos.TodoList',
+            error: new Todos.TodoAlreadyExistError('Used title')
+          })
         ]);
     });
 

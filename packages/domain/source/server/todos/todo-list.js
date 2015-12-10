@@ -36,6 +36,11 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _createTodo(command) {
+
+    if (this._getTodoByTitle(command.title)) {
+      throw new Todos.TodoAlreadyExistError(command.title);
+    }
+
     let eventProps = this._eventPropsFromCommand(command);
     this.record(new Todos.TodoCreated(_.extend(eventProps, {
       todoId: new Guid(),
@@ -74,6 +79,11 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   },
 
   _changeTodoTitle(command) {
+
+    if (this._getTodoByTitle(command.newTitle)) {
+      throw new Todos.TodoAlreadyExistError(command.newTitle);
+    }
+
     this.record(new Todos.TodoTitleChanged(this._eventPropsFromCommand(command)));
   },
 
@@ -128,7 +138,17 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
       throw new Todos.TodoNotFoundError(id);
     }
     return foundTodo;
+  },
+
+  _getTodoByTitle(title) {
+    for (let todo of this.todos) {
+      if (todo.title === title) {
+        return todo;
+      }
+    }
+    return null;
   }
+
 });
 
 Todos.TodoList.registerSnapshotType(`Todos.TodoList`);
