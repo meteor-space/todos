@@ -10,15 +10,17 @@ Space.flux.BlazeComponent.extend(Todos, 'Input', {
 
         // When it was the ENTER key
         if (event.keyCode === 13) {
+          // If the title is not empty send TodoCreated event
+          var input = this.$('.new-todo').val().trim();
 
-          // Tell mediator about it
-          var input = this.$('.new-todo').val();
-          this.publish(new Todos.TodoCreated({
-            title: input
-          }));
+          if (input.length) {
+            this.publish(new Todos.TodoCreated({
+              title: input
+            }));
 
-          // Reset input
-          this.$('.new-todo').val('');
+            // Reset input
+            this.$('.new-todo').val('');
+          }
         }
       }
     }];
