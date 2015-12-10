@@ -25,11 +25,6 @@ Space.flux.BlazeComponent.extend(Todos, 'TodoList', {
     }
   },
 
-  prepareTodoData() {
-    let todo = this.currentData();
-    return todo;
-  },
-
   events() {
     return [{
       'click .toggle-all': this.toggleAllTodos
