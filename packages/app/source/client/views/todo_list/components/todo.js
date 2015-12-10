@@ -17,8 +17,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Todo', {
         template.$('.edit').focus().select();
       }
       return 'editing';
-    }
-    else {
+    } else {
       return '';
     }
   },
