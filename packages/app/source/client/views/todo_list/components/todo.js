@@ -41,7 +41,8 @@ Space.flux.BlazeComponent.extend(Todos, 'Todo', {
     }];
   },
 
-  _toggleTodo() {
+  _toggleTodo(event) {
+    event.preventDefault();
     if (this.currentData().isCompleted) {
       this.publish(new Todos.TodoReopened({
         todoId: this.currentData().id
