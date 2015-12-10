@@ -1,14 +1,14 @@
 
 <template name="index">
 
-  <section id="todoapp">
+  <section class="todoapp">
 
-    <header id="header">
+    <header class="header">
       <h1>todos</h1>
       {{> Template.dynamic template=input}}
     </header>
 
-    <section id="main">
+    <section class="main">
       {{> Template.dynamic template=todo_list}}
     </section>
 
@@ -16,8 +16,8 @@
 
   </section>
 
-  <footer id="info">
-    <strong>Double-click to edit a todo</strong>
+  <footer class="info">
+    <p>Double-click to edit a todo</p>
 
     <p><a href="https://github.com/meteor-space/todos">Todos</a> app, <a href="http://github.com/Meteor-Space">Meteor
       Space</a> port
@@ -25,7 +25,7 @@
       &nbsp;&nbsp;
     </p>
 
-    <p>by Darko Mijić - <a href="https://github.com/darko-mijic">GitHub</a></p>
+    <p>by Darko Mijić - <a href="https://www.linkedin.com/in/darkomijic">LinkedIn</a></p>
 
   </footer>
 
