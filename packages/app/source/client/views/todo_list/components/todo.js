@@ -6,7 +6,7 @@ Space.flux.BlazeComponent.extend(Todos, 'Todo', {
   },
 
   completedState() {
-    return this.isCompleted ? 'completed' : '';
+    return this.currentData().isCompleted ? 'completed' : '';
   },
 
   editingState() {
