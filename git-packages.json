@@ -1,15 +1,15 @@
 {
   "space:base": {
     "git":"https://github.com/meteor-space/base.git",
-    "commit": "20d64a7ebe4a17ca90ba0f267123cef792aeb4ce"
+    "commit": "80400f278c0ad911b8dee888eca4c54d979f1a1c"
   },
   "space:messaging": {
     "git":"https://github.com/meteor-space/messaging.git",
-    "commit": "2ec04c0d3004df3fa3f95ebaecff51917676f9ce"
+    "commit": "0c1c3bd3d210d2bb7bbdb64057a932305d2c250a"
   },
   "space:event-sourcing": {
     "git":"https://github.com/meteor-space/event-sourcing.git",
-    "commit": "acb900cee7023468c5a3100081bad7949a5fe60d"
+    "commit": "9941fdd800543c1897eb0d8baaf30514e53f301a"
   },
   "space:domain": {
     "git":"https://github.com/meteor-space/domain.git",
