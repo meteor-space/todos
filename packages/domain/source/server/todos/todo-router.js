@@ -1,4 +1,4 @@
-Space.eventSourcing.Router.extend(Todos, 'TodosRouter', {
+Space.eventSourcing.Router.extend('Todos.TodosRouter', {
 
   eventSourceable: Todos.TodoList,
 

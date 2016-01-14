@@ -1,4 +1,4 @@
-Space.Application.extend(Todos, 'App', {
+Space.Application.extend('Todos.App', {
 
   configuration: {
     appId: 'Todos.App',

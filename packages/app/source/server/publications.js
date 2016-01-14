@@ -1,4 +1,4 @@
-Space.messaging.Publication.extend(Todos, 'TodosPublication', {
+Space.messaging.Publication.extend('Todos.TodosPublication', {
 
   dependencies: {
     todosCollection: 'Todos.TodoLists'

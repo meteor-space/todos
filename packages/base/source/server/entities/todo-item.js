@@ -1,4 +1,4 @@
-Space.domain.Entity.extend(Todos, 'TodoItem', {
+Space.domain.Entity.extend('Todos.TodoItem', {
 
   // EJSON serializable fields
   fields() {
@@ -9,6 +9,3 @@ Space.domain.Entity.extend(Todos, 'TodoItem', {
     };
   }
 });
-
-// Register as EJSON type
-Todos.TodoItem.type('Todos.TodoItem');

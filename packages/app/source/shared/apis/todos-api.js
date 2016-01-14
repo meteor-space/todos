@@ -1,4 +1,4 @@
-Space.messaging.Api.extend(Todos, 'TodosApi', {
+Space.messaging.Api.extend('Todos.TodosApi', {
 
   dependencies: {
     todos: 'Todos.TodoLists'
