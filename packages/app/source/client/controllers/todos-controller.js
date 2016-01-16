@@ -1,4 +1,4 @@
-Space.Object.extend(Todos, 'TodosController', {
+Space.Object.extend('Todos.TodosController', {
 
   mixin: [
     Space.messaging.EventSubscribing,

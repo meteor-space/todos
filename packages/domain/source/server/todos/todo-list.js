@@ -1,6 +1,4 @@
-Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
-
-  onExtending() {this.type('Todos.TodoList');},
+Space.eventSourcing.Aggregate.extend('Todos.TodoList', {
 
   fields: {
     name: String,
@@ -131,4 +129,4 @@ Space.eventSourcing.Aggregate.extend(Todos, 'TodoList', {
   }
 });
 
-Todos.TodoList.registerSnapshotType(`Todos.TodoList`);
+Todos.TodoList.registerSnapshotType(`Todos.TodoListSnapshot`);

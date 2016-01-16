@@ -1,4 +1,4 @@
-Space.flux.BlazeComponent.extend(Todos, 'Footer', {
+Space.flux.BlazeComponent.extend('Todos.Footer', {
 
   dependencies: {
     store: 'Todos.TodosStore',

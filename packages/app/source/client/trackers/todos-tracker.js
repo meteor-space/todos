@@ -1,4 +1,4 @@
-Space.messaging.Tracker.extend(Todos, 'TodosTracker', {
+Space.messaging.Tracker.extend('Todos.TodosTracker', {
 
   dependencies: {
     store: 'Todos.TodosStore',
