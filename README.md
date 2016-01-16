@@ -27,4 +27,7 @@ Space http://todomvc.com/ implementation
 5. Run the app
 
   `./run.sh`
-  
+
+## Space architecture diagram from Todos
+
+![Todos model](docs/images/todos-model.png?raw=true)
