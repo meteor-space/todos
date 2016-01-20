@@ -36,6 +36,7 @@ Package.onTest(function(api) {
     'mongo',
     'underscore',
     'space:testing@2.0.0',
+    'space:testing-event-sourcing@0.1.0',
     'todos:base',
     'todos:domain',
     'practicalmeteor:munit@2.1.5',
