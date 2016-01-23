@@ -1,30 +1,42 @@
 {
   "space:base": {
     "git":"https://github.com/meteor-space/base.git",
-    "version": "80400f278c0ad911b8dee888eca4c54d979f1a1c"
+    "version": "5957802a44b986e60c09be23b84a3680f355fdb4"
   },
   "space:messaging": {
     "git":"https://github.com/meteor-space/messaging.git",
-    "version": "0c1c3bd3d210d2bb7bbdb64057a932305d2c250a"
+    "version": "207fe48806c6c63e1a6d3973d38050f9686ca99c"
   },
   "space:event-sourcing": {
     "git":"https://github.com/meteor-space/event-sourcing.git",
-    "version": "9941fdd800543c1897eb0d8baaf30514e53f301a"
+    "version": "d87abde5d356cb8256de292e91cd2e8b9d87a2ca"
   },
   "space:domain": {
     "git":"https://github.com/meteor-space/domain.git",
-    "version": "a66e76a9b9e3617a686348f805d3dc3a9ec029ac"
+    "version": "6a6725ee8983b58170dcd0f519c912c96be2f3e4"
+  },
+  "space:ui": {
+    "git":"https://github.com/meteor-space/ui.git",
+    "version": "01fad2f7e103363bf724f2319e38c4897b494cf2"
   },
   "space:flux": {
     "git":"https://github.com/meteor-space/flux.git",
-    "version": "efd1caa5d9c85efa929be5ae6f3d46e12eedabec"
+    "version": "acd464bac69656d71d9dedc213d41c3b8a41b481"
   },
   "space:testing": {
     "git":"https://github.com/meteor-space/testing.git",
-    "version": "3974bd7f7e3cd467a3c29136afcd773c9ba6913a"
+    "version": "7a404a8cf8e19b1cd0490dac8025c58046fe10b1"
   },
   "space:testing-event-sourcing": {
     "git":"https://github.com/meteor-space/testing-event-sourcing.git",
-    "version": "564629e234df55ba27617d1cfe69830725a1d74f"
+    "version": "3a2a3c9d226e5a14fc49b1c05ca6803153bb1890"
+  },
+  "space:testing-messaging": {
+    "git":"https://github.com/meteor-space/testing-messaging.git",
+    "version": "916e82aa9dbfd2dfcd14d9a290cf37ff55af0598"
+  },
+  "space:testing-flux": {
+    "git":"https://github.com/meteor-space/testing-flux.git",
+    "version": "9b91be5efbb2adcb86b461f44a16d8f7ca44111d"
   }
 }

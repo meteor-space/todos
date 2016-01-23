@@ -17,7 +17,7 @@ Package.onUse(function(api) {
     'underscore',
     'space:event-sourcing@2.1.0',
     'todos:base',
-    'space:domain@0.1.0',
+    'space:domain@0.2.1',
   ]);
 
   api.addFiles([
@@ -35,8 +35,9 @@ Package.onTest(function(api) {
   api.use([
     'mongo',
     'underscore',
-    'space:testing@2.0.0',
-    'space:testing-event-sourcing@0.1.0',
+    'space:testing@3.0.1',
+    'space:testing-event-sourcing@3.0.0',
+    'space:testing-event-sourcing@3.0.0',
     'todos:base',
     'todos:domain',
     'practicalmeteor:munit@2.1.5',

@@ -16,9 +16,9 @@ Package.onUse(function (api) {
 
   api.use([
     'meteor-base',
+    'blaze',
+    'spacebars',
     'standard-minifiers',
-    'templating',
-    'blaze-html-templates',
     'ecmascript',
     'spacebars',
     'mongo',
@@ -29,10 +29,10 @@ Package.onUse(function (api) {
     'meteorhacks:flow-router@1.19.0',
     'kadira:blaze-layout@2.1.0',
     'meteorhacks:subs-manager@1.6.2',
-    'space:base@3.1.0',
-    'space:messaging@2.1.0',
+    'space:base@4.0.0',
+    'space:messaging@3.0.1',
     'space:event-sourcing@2.1.0',
-    'space:flux@0.6.0',
+    'space:flux@0.7.0',
     'todos:base',
     'todos:domain',
   ]);
@@ -102,7 +102,9 @@ Package.onTest(function (api) {
   api.use([
     'mongo',
     'ecmascript',
-    'space:testing@2.0.0',
+    'space:testing@3.0.1',
+    'space:testing-messaging@3.0.0',
+    'space:testing-flux@0.7.0',
     'todos:base',
     'todos:domain',
     'todos:app',

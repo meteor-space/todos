@@ -13,8 +13,8 @@ Package.onUse(function(api) {
   api.use([
     'check',
     'ecmascript',
-    'space:messaging@2.1.0',
-    'space:domain@0.1.0'
+    'space:messaging@3.0.0',
+    'space:domain@0.2.1'
   ]);
 
   // SHARED
