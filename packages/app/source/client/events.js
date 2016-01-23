@@ -1,4 +1,4 @@
-Space.messaging.define(Space.messaging.Event, 'Todos', {
+Space.ui.defineEvents('Todos', {
 
   // ======= Routing =======
   RouteRequested: {
@@ -41,6 +41,5 @@ Space.messaging.define(Space.messaging.Event, 'Todos', {
   TodoEditingEnded: {
     todoId: String
   }
-
 
 });
