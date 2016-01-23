@@ -25,7 +25,7 @@ Package.onUse(function (api) {
     'session',
     'check',
     'reactive-dict',
-    'peerlibrary:blaze-components@0.15.0',
+    'peerlibrary:blaze-components@0.16.2',
     'meteorhacks:flow-router@1.19.0',
     'kadira:blaze-layout@2.1.0',
     'meteorhacks:subs-manager@1.6.2',
