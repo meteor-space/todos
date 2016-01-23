@@ -10,7 +10,6 @@ describe('Todos.Api', function() {
     this.createTodoListCommand = new Todos.CreateTodoList({
       targetId: this.todoListId,
       name: 'MyTodos',
-      version: 1
     });
 
     /*this.todoListCreatedEvent = new Todos.TodoListCreated({
