@@ -1,4 +1,4 @@
-Space.messaging.define(Space.messaging.Event, 'Todos', {
+Space.messaging.define(Space.domain.Event, 'Todos', {
 
   TodoListCreated: {
     name: String
