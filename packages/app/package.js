@@ -29,7 +29,7 @@ Package.onUse(function (api) {
     'meteorhacks:flow-router@1.19.0',
     'kadira:blaze-layout@2.1.0',
     'meteorhacks:subs-manager@1.6.2',
-    'space:base@4.0.0',
+    'space:base@4.0.1',
     'space:messaging@3.0.1',
     'space:event-sourcing@2.1.0',
     'space:flux@0.7.0',
@@ -90,7 +90,7 @@ Package.onUse(function (api) {
 
   // Startup
   api.addFiles([
-    'source/startup.js',
+    'source/startup.js'
   ]);
 
 
@@ -108,7 +108,7 @@ Package.onTest(function (api) {
     'todos:base',
     'todos:domain',
     'todos:app',
-    'practicalmeteor:munit@2.1.5',
+    'practicalmeteor:munit@2.1.5'
   ]);
 
   api.addFiles([

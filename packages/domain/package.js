@@ -16,8 +16,7 @@ Package.onUse(function(api) {
     'ecmascript',
     'underscore',
     'space:event-sourcing@2.1.0',
-    'todos:base',
-    'space:domain@0.2.1',
+    'todos:base'
   ]);
 
   api.addFiles([
@@ -33,15 +32,16 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
 
   api.use([
+    'ecmascript',
     'mongo',
+    'check',
     'underscore',
-    'space:testing@3.0.1',
-    'space:testing-event-sourcing@3.0.0',
-    'space:testing-messaging@3.0.0',
     'todos:base',
     'todos:domain',
-    'practicalmeteor:munit@2.1.5',
-    'ecmascript',
+    'space:testing@3.0.1',
+    'space:testing-messaging@3.0.1',
+    'space:testing-event-sourcing@3.0.0',
+    'practicalmeteor:munit@2.1.5'
   ]);
 
   api.addFiles([
