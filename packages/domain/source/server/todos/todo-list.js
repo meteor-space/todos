@@ -1,10 +1,8 @@
 Space.eventSourcing.Aggregate.extend('Todos.TodoList', {
 
-  fields() {
-    return {
-      name: String,
-      todos: [Todos.TodoItem]
-    };
+  fields: {
+    name: String,
+    todos: [Todos.TodoItem]
   },
 
   commandMap() {
