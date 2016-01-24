@@ -37,7 +37,7 @@ Package.onTest(function(api) {
     'underscore',
     'space:testing@3.0.1',
     'space:testing-event-sourcing@3.0.0',
-    'space:testing-event-sourcing@3.0.0',
+    'space:testing-messaging@3.0.0',
     'todos:base',
     'todos:domain',
     'practicalmeteor:munit@2.1.5',
