@@ -1,0 +1,21 @@
+<template name="footer">
+
+  {{#if hasAnyTodos}}
+    <footer class="footer">
+    <span class="todo-count">
+      <strong>{{activeTodosCount}}</strong> {{pluralize activeTodosCount}} item left
+    </span>
+
+      <ul class="filters">
+        {{#each filters}}
+          <li><a href="{{path}}" class="{{selected}}">{{name}}</a></li>
+        {{/each}}
+      </ul>
+
+      {{#if completedTodosCount}}
+        <button class="clear-completed">Clear completed ({{completedTodosCount}})</button>
+      {{/if}}
+    </footer>
+  {{/if}}
+
+</template>

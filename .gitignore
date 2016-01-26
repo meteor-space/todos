@@ -1,0 +1,4 @@
+.idea
+environment.sh
+local-packages.json
+packages/.gitignore

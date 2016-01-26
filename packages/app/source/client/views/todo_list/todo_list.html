@@ -1,0 +1,15 @@
+<template name="todo_list">
+
+
+  {{#if hasAnyTodos}}
+    <input class="toggle-all" type="checkbox" checked={{isToggleChecked}}>
+    <label for="toggle-all">Mark all as complete</label>
+  {{/if}}
+
+  <ul class="todo-list">
+    {{#each todos}}
+      {{> todo}}
+    {{/each}}
+  </ul>
+
+</template>
