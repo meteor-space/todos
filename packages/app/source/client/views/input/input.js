@@ -1,4 +1,4 @@
-Space.flux.BlazeComponent.extend('Todos.Input', {
+Space.ui.BlazeComponent.extend('Todos.Input', {
 
   onExtending() {
     this.register('input');

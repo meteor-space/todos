@@ -1,4 +1,4 @@
-Space.messaging.define(Space.messaging.Command, 'Todos', {
+Space.messaging.define(Space.domain.Command, 'Todos', {
 
   CreateTodoList: {
     name: String
