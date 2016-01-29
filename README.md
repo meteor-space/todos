@@ -16,17 +16,15 @@ Space http://todomvc.com/ implementation
 
   `cd <space-todos>`
 
-3. Install MGP (one time only)
+3. Run the app
 
-  `npm install -g mgp`
- 
-4. Run MGP
+  `meteor`
 
-  `mgp`
-  
-5. Run the app
+## Running with custom environment variables
 
-  `./run.sh`
+1. Use provided `environment.example.sh` as a template for custom `environment.sh` file
+
+2. Run with `./run.sh`
 
 ## Space architecture diagram from Todos
 
