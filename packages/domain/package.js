@@ -15,7 +15,7 @@ Package.onUse(function(api) {
     'check',
     'ecmascript',
     'underscore',
-    'space:event-sourcing@2.1.0',
+    'space:event-sourcing@3.0.0',
     'todos:base'
   ]);
 
