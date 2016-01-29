@@ -9,10 +9,9 @@ Space.Object.extend('Todos.LayoutController', {
     _: 'underscore'
   },
 
-  Constructor() {
-    this._currentLayout = null;
-    this._currentSections = {};
-  },
+  _currentLayout: null,
+
+  _currentSections: {},
 
   eventSubscriptions() {
     return [{
