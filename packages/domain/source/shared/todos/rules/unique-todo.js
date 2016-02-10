@@ -1,6 +1,6 @@
 Space.domain.Rule.extend('Todos.UniqueTodoRule', {
 
-  enforce() {
+  enforceMap() {
     return [{
       'Todos.CreateTodo': this._onCreateTodo
     }]
