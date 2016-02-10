@@ -63,11 +63,11 @@ reload@1.1.4
 retry@1.0.4
 routepolicy@1.0.6
 session@1.1.1
-space:base@4.0.0
+space:base@4.1.1
 space:domain@0.2.1
-space:event-sourcing@2.1.0
+space:event-sourcing@3.0.0
 space:flux@0.7.0
-space:messaging@3.0.1
+space:messaging@3.1.1
 space:ui@6.0.0
 spacebars@1.0.7
 spacebars-compiler@1.0.7
