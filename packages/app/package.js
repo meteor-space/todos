@@ -49,7 +49,10 @@ Package.onUse(function (api) {
   // SHARED configuration
   api.addFiles([
       'source/shared/todos-collection.js',
-      'source/shared/apis/todos-api.js'
+      'source/shared/apis/todos-api.js',
+      'source/shared/middleware/auth-middleware.js',
+      'source/shared/middleware/logging-middleware.js',
+      'source/shared/middleware/todos-middleware.js',
     ],
     ['client', 'server']
   );

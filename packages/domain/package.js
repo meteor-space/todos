@@ -26,6 +26,10 @@ Package.onUse(function(api) {
     'source/server/todos/todo-router.js',
   ], 'server');
 
+  api.addFiles([
+    'source/shared/todos/rules/unique-todo.js',
+  ]);
+
 });
 
 

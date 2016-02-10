@@ -27,7 +27,9 @@ Space.Application.extend('Todos.App', {
 
   singletons: [
     'Todos.TodosApi',
-    'Todos.TodosTracker'
+    'Todos.TodosTracker',
+    'Todos.LoggingMiddleware',
+    'Todos.UniqueTodoRule',
   ],
 
   onInitialize() {

@@ -15,6 +15,51 @@ Space.messaging.Api.extend('Todos.TodosApi', {
     }];
   },
 
+  /*
+  If middleware uses 'before' or/and 'after' - this hooks will be applied
+  to each method handler that is here specified on this.methods()
+
+  Todos.TodosApi is shared between client and server, so by that
+  we are enforcing SAME middleware rules on client and server.
+
+  This is very important if we need same validation on client and server.
+  */
+  middleware() {
+    var middleware = []
+    if (Meteor.isServer) {
+      middleware.push(Todos.TodosMiddleware);
+    }
+    middleware.push(Todos.AuthenticatingMiddleware);
+
+    return middleware
+  },
+  // OR simple shared/specified to side where todos-api.js (this file) is
+  // mapped on package.js(server/client)
+
+  // middleware() {
+  //   return [
+  //     Todos.AuthenticatingMiddleware,
+  //     Todos.TodosMiddleware
+  //   ]
+  // },
+
+
+
+  // Applies just to specific command handlers
+  beforeMap() {
+    return [{
+      'Todos.CreateTodo': this._onBeforeCreateTodo
+      // 'Todos.CompleteTodo': this.someDependency.completeTodo,
+    }]
+  },
+
+  // Applies just to specific command handlers
+  afterMap() {
+    return [{
+      'Todos.CreateTodo': this._onAfterCreateTodo
+    }]
+  },
+
   _createTodoList(context, command) {
     if (context.isSimulation) {
       this.todos.insert({
@@ -27,7 +72,19 @@ Space.messaging.Api.extend('Todos.TodosApi', {
     }
   },
 
+  _onBeforeCreateTodo(context, command) {
+    console.log(
+      ['hook', 'beforeMap'], 'Todos.TodosApi', '_onBeforeCreateTodo',
+      command.toString(), ['S', 'C']
+    )
+  },
+
   _createTodo(context, command) {
+    console.log(
+      ['methodHandler'], 'Todos.TodosApi', '_createTodo', command.toString(),
+      ['S', 'C']
+    )
+
     if (context.isSimulation) {
       this.todos.update(command.targetId, {
         $push: { todos: {
@@ -39,6 +96,13 @@ Space.messaging.Api.extend('Todos.TodosApi', {
     } else {
       this.send(command);
     }
+  },
+
+  _onAfterCreateTodo(context, command) {
+    console.log(
+      ['hook', 'afterMap'], 'Todos.TodosApi', '_onAfterCreateTodo',
+      command.toString(), ['S', 'C']
+    )
   },
 
   _completeTodo(context, command) {
