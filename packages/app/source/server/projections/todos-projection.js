@@ -16,11 +16,15 @@ Space.eventSourcing.Projection.extend('Todos.TodosProjection', {
   },
 
   _onTodoListCreated(event) {
-    this.repository.createTodoList(event.sourceId, event.name, event.todos);
+    this.repository.createTodoList(event.sourceId, event.name);
   },
 
   _onTodoCreated(event) {
-    this.repository.addTodo(event.sourceId, event.todoId, event.todo);
+    this.repository.addTodo(event.sourceId, event.todoId, {
+      id: event.todoId,
+      title: event.title,
+      isCompleted: event.isCompleted
+    });
   },
 
   _onTodoCompleted(event) {

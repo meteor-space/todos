@@ -8,7 +8,7 @@ Space.Object.extend('Todos.TodosRepository', {
     this.todos.insert({
       _id: listId.toString(),
       name: name,
-      todos: todos
+      todos: []
     });
   },
 
