@@ -1,13 +1,12 @@
 Space.messaging.define(Space.domain.Event, 'Todos', {
 
   TodoListCreated: {
-    name: String
+    name: String,
+    todos: Array
   },
 
   TodoCreated: {
-    todoId: Guid,
-    title: String,
-    isCompleted: Boolean
+    todo: Todos.TodoItem
   },
 
   TodoCompleted: {

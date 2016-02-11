@@ -30,15 +30,23 @@ Space.eventSourcing.Aggregate.extend('Todos.TodoList', {
   // ============= COMMAND HANDLERS =============
 
   _createTodoList(command) {
-    this.record(new Todos.TodoListCreated(this._eventPropsFromCommand(command)));
+    let eventProps = this._eventPropsFromCommand(command);
+    eventProps.todos = [];
+    console.log(eventProps)
+    this.record(new Todos.TodoListCreated(eventProps));
   },
 
   _createTodo(command) {
-    let eventProps = this._eventPropsFromCommand(command);
-    this.record(new Todos.TodoCreated(_.extend(eventProps, {
-      todoId: new Guid(),
+    let todo = new Todos.TodoItem({
+      id: new Guid(),
+      title: command.title,
       isCompleted: false
-    })));
+    });
+
+    this.record(new Todos.TodoCreated({
+      sourceId: command.targetId,
+      todo: todo
+    }));
   },
 
   _completeTodo(command) {
@@ -79,17 +87,10 @@ Space.eventSourcing.Aggregate.extend('Todos.TodoList', {
 
   _onTodoListCreated(event) {
     this._assignFields(event);
-    this.todos = [];
   },
 
   _onTodoCreated(event) {
-    let todo = new Todos.TodoItem({
-      id: event.todoId,
-      title: event.title,
-      isCompleted: event.isCompleted
-    });
-
-    this.todos.push(todo);
+    this.todos.push(event.todo);
   },
 
   _onTodoCompleted(event) {
