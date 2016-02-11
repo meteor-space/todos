@@ -1,7 +1,7 @@
 Space.eventSourcing.Projection.extend('Todos.TodosProjection', {
 
-  collections: {
-    todos: 'Todos.TodoLists'
+  dependencies: {
+    repository: 'Todos.TodosRepository'
   },
 
   eventSubscriptions() {
@@ -16,50 +16,31 @@ Space.eventSourcing.Projection.extend('Todos.TodosProjection', {
   },
 
   _onTodoListCreated(event) {
-    this.todos.insert({
-      _id: event.sourceId.toString(),
-      name: event.name,
-      todos: []
-    });
+    this.repository.createTodoList(event.sourceId, event.name);
   },
 
   _onTodoCreated(event) {
-    this.todos.update(event.sourceId.toString(), {
-      $push: { todos: {
-        id: event.todoId.toString(),
-        title: event.title,
-        isCompleted: event.isCompleted
-      }}
+    this.repository.addTodo(event.sourceId, event.todoId, {
+      id: event.todoId,
+      title: event.title,
+      isCompleted: event.isCompleted
     });
   },
 
   _onTodoCompleted(event) {
-    this.todos.update({_id: event.sourceId.toString(), 'todos.id': event.todoId.toString()}, {
-      $set: {
-        'todos.$.isCompleted': true
-      }
-    });
+    this.repository.completeTodo(event.sourceId, event.todoId);
   },
 
   _onTodoReopened(event) {
-    this.todos.update({_id: event.sourceId.toString(), 'todos.id': event.todoId.toString()}, {
-      $set: {
-        'todos.$.isCompleted': false
-      }
-    });
+    this.repository.reopenTodo(event.sourceId, event.todoId);
   },
 
   _onTodoRemoved(event) {
-    let removeTodo = {$pull:{todos: {id: event.todoId.toString()}}};
-    this.todos.update({'_id': event.sourceId.toString()}, removeTodo);
+    this.repository.removeTodo(event.sourceId, event.todoId);
   },
 
   _onTodoTitleChanged(event) {
-    this.todos.update({_id: event.sourceId.toString(), 'todos.id': event.todoId.toString()}, {
-      $set: {
-        'todos.$.title': event.newTitle
-      }
-    });
+    this.repository.changeTitle(event.sourceId, event.todoId, event.newTitle);
   }
 
 });

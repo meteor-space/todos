@@ -12,8 +12,9 @@ Todos.App = Space.Application.define('Todos.App', {
   singletons: [
     'Todos.TodosApi',
     'Todos.TodosProjection',
+    'Todos.TodosRepository',
     'Todos.TodosPublication',
-    'Todos.LoggingMiddleware',
+    'Todos.LoggingMiddleware'
   ],
 
   onInitialize() {

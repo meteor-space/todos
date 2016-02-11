@@ -39,6 +39,8 @@ Package.onUse(function (api) {
 
   // SERVER Configuration
   api.addFiles([
+    // REPOSITORIES
+    'source/server/repositories/todos-repository.js',
     // PROJECTIONS
     'source/server/projections/todos-projection.js',
     // PUBLICATIONS
