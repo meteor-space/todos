@@ -22,6 +22,7 @@ Package.onUse(function(api) {
   api.addFiles([
     'source/server/module.js',
     // TODO ITEMS
+    'source/server/todos/service/uniqueness.js',
     'source/server/todos/todo-list.js',
     'source/server/todos/todo-router.js',
   ], 'server');
