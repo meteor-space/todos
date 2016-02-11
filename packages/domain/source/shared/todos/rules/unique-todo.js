@@ -1,5 +1,9 @@
 Space.domain.Rule.extend('Todos.UniqueTodoRule', {
 
+  mixin: [
+    Space.messaging.CommandSending
+  ],
+
   enforceMap() {
     return [{
       'Todos.CreateTodo': this._onCreateTodo
@@ -12,13 +16,14 @@ Space.domain.Rule.extend('Todos.UniqueTodoRule', {
       ['S', 'C']
     )
 
-    if (typeof command.title !== "undefined" && command.title === 'notunique') {
-      var error = 'Title must be unique';
-      if (Meteor.isClient) {
-        alert(error);
+    this.send(
+      new Todos.ValidateTodo({title: command.title}), function(err, result) {
+        if (result === false) {
+          alert('So much duplication, so much wow');
+          throw new Error();
+        }
       }
-      throw new Meteor.Error(403, error);
-    }
+    );
   },
 
 });

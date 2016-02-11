@@ -11,7 +11,8 @@ Space.messaging.Api.extend('Todos.TodosApi', {
       'Todos.CompleteTodo': this._completeTodo,
       'Todos.ReopenTodo': this._reopenTodo,
       'Todos.RemoveTodo': this._removeTodo,
-      'Todos.ChangeTodoTitle': this._changeTodoTitle
+      'Todos.ChangeTodoTitle': this._changeTodoTitle,
+      'Todos.ValidateTodo': this._validateTodo
     }];
   },
 
@@ -147,6 +148,12 @@ Space.messaging.Api.extend('Todos.TodosApi', {
       });
     } else {
       this.send(command);
+    }
+  },
+
+  _validateTodo(context, command) {
+    if (!context.isSimulation) {
+      return this.send(command);
     }
   }
 

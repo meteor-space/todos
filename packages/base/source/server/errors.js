@@ -11,3 +11,7 @@ Space.Error.extend('Todos.TodoNotFoundError', {
     Space.Error.call(this, `No todo with id ${todoId} found.`);
   }
 });
+
+Space.Error.extend('Todos.TodoNotUnique', {
+  message: 'Todo must be unique.'
+});

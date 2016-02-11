@@ -24,5 +24,12 @@ Space.messaging.define(Space.domain.Command, 'Todos', {
     todoId: Guid,
     newTitle: String
   }
+});
+
+Space.messaging.define(Space.messaging.Command, 'Todos', {
+
+  ValidateTodo: {
+    title: String
+  }
 
 });

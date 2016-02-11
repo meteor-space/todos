@@ -49,6 +49,12 @@ Space.Object.extend('Todos.TodosRepository', {
         'todos.$.title': newTitle
       }
     });
+  },
+
+  isUniqueTodoByTitle(title){
+    let result = this.todos.findOne({'todos.title': title}, {fields: {_id: 1}})
+    return (result === undefined)
   }
+
 });
 
