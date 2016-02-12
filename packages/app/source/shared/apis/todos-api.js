@@ -73,18 +73,19 @@ Space.messaging.Api.extend('Todos.TodosApi', {
     }
   },
 
-  _onBeforeCreateTodo(context, command) {
+  _onBeforeCreateTodo(context, command, next) {
     console.log(
       ['hook', 'beforeMap'], 'Todos.TodosApi', '_onBeforeCreateTodo',
       command.toString(), ['S', 'C']
-    )
+    );
+    next(context, command);
   },
 
   _createTodo(context, command) {
     console.log(
       ['methodHandler'], 'Todos.TodosApi', '_createTodo', command.toString(),
       ['S', 'C']
-    )
+    );
 
     if (context.isSimulation) {
       this.todos.update(command.targetId, {
@@ -99,11 +100,12 @@ Space.messaging.Api.extend('Todos.TodosApi', {
     }
   },
 
-  _onAfterCreateTodo(context, command) {
+  _onAfterCreateTodo(context, command, response, next) {
     console.log(
       ['hook', 'afterMap'], 'Todos.TodosApi', '_onAfterCreateTodo',
-      command.toString(), ['S', 'C']
-    )
+      command.toString(), ['S', 'C'], response
+    );
+    next(context, command, response);
   },
 
   _completeTodo(context, command) {

@@ -4,24 +4,28 @@ Space.messaging.ApiMiddleware.extend('Todos.LoggingMiddleware', {
     log: 'log'
   },
 
-  before(context, command) {
+  before(context, command, next) {
     console.log(
-      ['hook', 'globalBeforeHook'], 'Todos.LoggingMiddleware', command.toString(),
+      ['hook', 'globalBefore'], 'Todos.LoggingMiddleware', command.toString(),
       ['S', 'C']
-    )
+    );
     this.log.info(
       'Todos.LoggingMiddleware' + ' globalBefore ' + command.toString()
     );
+
+    next(context, command);
   },
 
-  after(context, command) {
+  after(context, command, response, next) {
     console.log(
-      ['hook', 'globalAfterHook'], 'Todos.LoggingMiddleware', command.toString(),
-      ['S', 'C']
-    )
+      ['hook', 'globalAfter'], 'Todos.LoggingMiddleware', command.toString(),
+      ['S', 'C'], response
+    );
     this.log.info(
       'Todos.LoggingMiddleware' + ' globalAfter ' + command.toString()
     );
+
+    next(context, command, response);
   }
 
 });

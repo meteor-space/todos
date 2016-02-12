@@ -55,6 +55,7 @@ Package.onUse(function (api) {
       'source/shared/middleware/auth-middleware.js',
       'source/shared/middleware/logging-middleware.js',
       'source/shared/middleware/todos-middleware.js',
+      'source/shared/middleware/command-middleware.js',
     ],
     ['client', 'server']
   );

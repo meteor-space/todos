@@ -10,7 +10,7 @@ Space.domain.Rule.extend('Todos.UniqueTodoRule', {
     }]
   },
 
-  _onCreateTodo(command) {
+  _onCreateTodo(command, next) {
     console.log(
       ['rule', 'before'], 'Todos.UniqueTodoRule', command.toString(),
       ['S', 'C']
@@ -21,6 +21,8 @@ Space.domain.Rule.extend('Todos.UniqueTodoRule', {
         if (result === false) {
           alert('So much duplication, so much wow');
           throw new Error();
+        } else {
+          next(command);
         }
       }
     );
