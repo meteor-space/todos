@@ -1,10 +1,10 @@
 {
   "space:messaging": {
     "git":"https://github.com/qejk/messaging.git",
-    "version": "864fb3e6bc24422abe5963e5d35d1b3767635922"
+    "version": "a4fc9ca42a1de5c50fdb42dec8b03c519da958cd"
   },
   "space:domain": {
     "git":"https://github.com/qejk/domain.git",
-    "version": "4f6d6b322911961dd2698c144ed9516c31161370"
+    "version": "7ed46135f55783df371f5a7e9fb37543ed260b2d"
   }
 }
