@@ -30,6 +30,7 @@ Space.Application.extend('Todos.App', {
     'Todos.TodosTracker',
     'Todos.LoggingMiddleware',
     'Todos.UniqueTodoRule',
+    'Todos.CommandMiddleware',
   ],
 
   onInitialize() {

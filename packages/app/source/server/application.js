@@ -15,6 +15,7 @@ Todos.App = Space.Application.define('Todos.App', {
     'Todos.TodosRepository',
     'Todos.TodosPublication',
     'Todos.LoggingMiddleware',
+    'Todos.CommandMiddleware',
     'Todos.TodosUniquenessService'
   ],
 
