@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 customEnv="./environment.sh"
 if [ -e "$customEnv" ]; then
   echo "Loading $customEnv"
