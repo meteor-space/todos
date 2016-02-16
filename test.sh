@@ -1,7 +1,7 @@
 customEnv="./environment.sh"
 if [ -e "$customEnv" ]; then
   echo "Loading $customEnv"
-  source customEnv
+  source $customEnv
 fi
 
 export PACKAGE_DIRS='packages'
