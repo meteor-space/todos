@@ -1,4 +1,8 @@
-source ./environment.sh # Customize environment
+customEnv="./environment.sh"
+if [ -e "$customEnv" ]; then
+  echo "Loading $customEnv"
+  source customEnv
+fi
 
 if [ "$PORT" ]; then
   meteor --port $PORT --allow-incompatible-update
