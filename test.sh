@@ -1,4 +1,9 @@
-source ./environment.sh # Customize environment
+#!/usr/bin/env bash
+customEnv="./environment.sh"
+if [ -e "$customEnv" ]; then
+  echo "Loading $customEnv"
+  source $customEnv
+fi
 
 export PACKAGE_DIRS='packages'
 
